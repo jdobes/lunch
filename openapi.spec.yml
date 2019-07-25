@@ -1,0 +1,64 @@
+openapi: "3.0.0"
+
+info:
+  title: Lunch Helper
+  version: "0.1"
+
+paths:
+  /:
+    get:
+      summary: Main page
+      description: Get main page
+      operationId: lunch.get_main_page
+      responses:
+        200:
+          description: Successfully loaded html page.
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /static/{filename}:
+    get:
+      summary: Static files
+      description: Get static file.
+      operationId: lunch.get_static_file
+      parameters:
+        - in: path
+          name: filename
+          description: File name.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully returned static file.
+        404:
+          description: File not found.
+
+  /api/restaurants:
+    get:
+      summary: Restaurants
+      description: Get list of restaurants.
+      operationId: lunch.get_restaurants
+      responses:
+        200:
+          description: List of restaurants.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  restaurants:
+                    type: array
+                    description: List of restaurants.
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                      required:
+                        - name
+                required:
+                  - restaurants
+
+
