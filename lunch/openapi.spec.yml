@@ -9,7 +9,7 @@ paths:
     get:
       summary: Main page
       description: Get main page
-      operationId: lunch.get_main_page
+      operationId: lunch.api.get_main_page
       responses:
         200:
           description: Successfully loaded html page.
@@ -22,7 +22,7 @@ paths:
     get:
       summary: Static files
       description: Get static file.
-      operationId: lunch.get_static_file
+      operationId: lunch.api.get_static_file
       parameters:
         - in: path
           name: filename
@@ -39,7 +39,7 @@ paths:
     get:
       summary: Restaurants
       description: Get list of restaurants.
-      operationId: lunch.get_restaurants
+      operationId: lunch.api.get_restaurants
       responses:
         200:
           description: List of restaurants.
