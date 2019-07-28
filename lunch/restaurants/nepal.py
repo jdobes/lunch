@@ -2,5 +2,5 @@
 
 NAME = "Nepál"
 
-def get_menu():
-    return "nepal menu"
+def sync():
+    pass

@@ -1,3 +1,5 @@
 apscheduler
 connexion[swagger-ui]
 peewee
+requests
+beautifulsoup4

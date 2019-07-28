@@ -14,7 +14,8 @@ logger.setLevel(logging.INFO)
 
 def sync(restaurants):
     for restaurant in restaurants:
-        logger.info("Syncing %s..." % restaurant)
+        restaurants[restaurant].sync()
+        logger.info("Synced %s." % restaurant)
 
 
 def get_restaurant_module(restaurant):

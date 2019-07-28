@@ -1,6 +1,7 @@
-from peewee import SqliteDatabase, Model, TextField
+from peewee import SqliteDatabase, Model, TextField, ForeignKeyField, DateField
 
-sqlite_db = SqliteDatabase("/tmp/lunch.db", pragmas={"journal_mode": "wal"})
+sqlite_db = SqliteDatabase("/tmp/lunch.db", pragmas={"journal_mode": "wal",
+                                                     "foreign_keys": 1})
 
 
 class BaseModel(Model):
@@ -10,9 +11,15 @@ class BaseModel(Model):
 
 
 class Restaurant(BaseModel):
-    label = TextField()
-    name = TextField()
+    label = TextField(null=False, unique=True)
+    name = TextField(null=False)
+
+
+class RestaurantMenu(BaseModel):
+    restaurant = ForeignKeyField(model=Restaurant, null=False)
+    day = DateField(null=False)
+    menu = TextField(null=False)
 
 
 def init_schema():
-    sqlite_db.create_tables([Restaurant])
+    sqlite_db.create_tables([Restaurant, RestaurantMenu])
