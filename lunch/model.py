@@ -10,6 +10,7 @@ class BaseModel(Model):
 
 
 class Restaurant(BaseModel):
+    label = TextField()
     name = TextField()
 
 
