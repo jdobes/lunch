@@ -1,6 +1,6 @@
 podman build -t lunch .
 
-podman run -p 8000:8000 --name lunch lunch
+podman run --rm -p 8000:8000 --name lunch lunch
 
 OR
 

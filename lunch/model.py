@@ -1,6 +1,6 @@
 from peewee import SqliteDatabase, Model, TextField
 
-sqlite_db = SqliteDatabase(":memory:", pragmas={"journal_mode": "wal"})
+sqlite_db = SqliteDatabase("/tmp/lunch.db", pragmas={"journal_mode": "wal"})
 
 
 class BaseModel(Model):
@@ -11,3 +11,7 @@ class BaseModel(Model):
 
 class Restaurant(BaseModel):
     name = TextField()
+
+
+def init_schema():
+    sqlite_db.create_tables([Restaurant])

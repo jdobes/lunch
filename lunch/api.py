@@ -2,6 +2,8 @@ import logging
 
 import flask
 
+from .model import Restaurant
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -20,6 +22,7 @@ def get_static_file(filename):
 
 def get_restaurants():
     response = {"restaurants": []}
-    #for restaurant in restaurants:
-    #    response["restaurants"].append({"name": restaurant})
+
+    for restaurant in Restaurant.select():
+        response["restaurants"].append({"name": restaurant.name})
     return response

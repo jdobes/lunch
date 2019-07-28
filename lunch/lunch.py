@@ -1,11 +1,12 @@
+import os
 import importlib
 import logging
+import sys
 
 from apscheduler.schedulers.background import BackgroundScheduler
 import connexion
-import yaml
 
-from .model import sqlite_db, Restaurant
+from .model import init_schema, Restaurant
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -16,22 +17,29 @@ def sync():
 
 
 def get_restaurant_module(restaurant):
-    return importlib.import_module(".%s" % restaurant, package=".lunch.restaurants")
+    try:
+        return importlib.import_module(".%s" % restaurant, package=".lunch.restaurants")
+    except ModuleNotFoundError:
+        return None
 
 
 def main():
     logging.basicConfig(format="%(asctime)s:%(levelname)s:%(name)s:%(message)s")
 
-    with open("/lunch/config.yml", "rb") as config_file:
-        config = yaml.safe_load(config_file)
-    
-    sqlite_db.create_tables([Restaurant])
+    enabled_restaurants = os.getenv("ENABLED_RESTAURANTS", "").split(",")
+
+    init_schema()
     logger.info("Database schema initialized.")
 
-    for restaurant in config["restaurants"]:
-        get_restaurant_module(restaurant)
-        #restaurants[restaurant] = module
-        logger.info("Loaded restaurant: %s", restaurant)
+    for restaurant in enabled_restaurants:
+        module = get_restaurant_module(restaurant)
+        if module:
+            record = Restaurant(name=restaurant)
+            record.save()
+            logger.info("Loaded restaurant module: %s", restaurant)
+        else:
+            logger.error("Unable to load restaurant module: %s", restaurant)
+            sys.exit(1)
 
     sync()
     sched = BackgroundScheduler(daemon=True)

@@ -12,6 +12,8 @@ USER lunch
 
 EXPOSE 8000
 
+ENV ENABLED_RESTAURANTS=asport,nepal
+
 ADD lunch/* /lunch/
 ADD lunch/restaurants/* /lunch/restaurants/
 ADD lunch/static/* /lunch/static/
