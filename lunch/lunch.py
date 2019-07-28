@@ -12,8 +12,9 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-def sync():
-    logger.info("Syncing...")
+def sync(restaurants):
+    for restaurant in restaurants:
+        logger.info("Syncing %s..." % restaurant)
 
 
 def get_restaurant_module(restaurant):
@@ -31,19 +32,21 @@ def main():
     init_schema()
     logger.info("Database schema initialized.")
 
+    restaurants = {}
     for restaurant in enabled_restaurants:
         module = get_restaurant_module(restaurant)
         if module:
             record = Restaurant(name=restaurant)
             record.save()
+            restaurants[restaurant] = module
             logger.info("Loaded restaurant module: %s", restaurant)
         else:
             logger.error("Unable to load restaurant module: %s", restaurant)
             sys.exit(1)
 
-    sync()
+    sync(restaurants)
     sched = BackgroundScheduler(daemon=True)
-    sched.add_job(sync, 'interval', minutes=1)
+    sched.add_job(sync, 'interval', [restaurants], minutes=1)
     sched.start()
     logger.info("Sync scheduler enabled.")
 
