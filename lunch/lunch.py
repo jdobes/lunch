@@ -6,7 +6,7 @@ import sys
 from apscheduler.schedulers.background import BackgroundScheduler
 import connexion
 
-from .model import init_schema, Restaurant
+from .model import init_schema, Restaurant, RestaurantMenu
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -14,7 +14,14 @@ logger.setLevel(logging.INFO)
 
 def sync(restaurants):
     for restaurant in restaurants:
-        restaurants[restaurant].sync()
+        logger.info("Parsing %s." % restaurant)
+        parsed_data = restaurants[restaurant].parse_menu()
+        if not parsed_data:
+            continue
+        restaurant_obj = Restaurant.get(label=restaurant)
+        for menu_day, menu_lines in parsed_data.items():
+            record = RestaurantMenu(restaurant=restaurant_obj, day=menu_day, menu="\n".join(menu_lines))
+            record.save()
         logger.info("Synced %s." % restaurant)
 
 

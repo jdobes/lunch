@@ -2,5 +2,5 @@
 
 NAME = "Nepál"
 
-def sync():
-    pass
+def parse_menu():
+    return None

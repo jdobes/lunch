@@ -1,6 +1,6 @@
 FROM fedora
 
-RUN dnf -y update && dnf clean all
+RUN dnf -y update && dnf -y install sqlite && dnf clean all
 
 ADD requirements.txt /
 
