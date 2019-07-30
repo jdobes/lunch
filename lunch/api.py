@@ -2,7 +2,6 @@ from datetime import date
 import logging
 
 import flask
-from peewee import JOIN
 
 from .model import Restaurant, RestaurantMenu
 
@@ -39,15 +38,19 @@ def get_menus(day=None, restaurants=None):
             return "Invalid day format: %s" % day, 400
     else:
         requested_date = date.today()
-
-    query = Restaurant.select(Restaurant.label, RestaurantMenu.menu).join(RestaurantMenu, JOIN.LEFT_OUTER) \
-        .where((RestaurantMenu.day == requested_date) | (RestaurantMenu.day.is_null()))
+    
     if restaurants:
         requested_restaurants = restaurants.split(",")
-        query = query.where(Restaurant.label << requested_restaurants)
+    else:    
+        requested_restaurants = [restaurant.label for restaurant in Restaurant.select()]
 
-    response = {"day": requested_date, "menus": []}
-    for menu in query.dicts():
-        response["menus"].append({"restaurant": menu["label"], "menu": menu["menu"]})
+    query = RestaurantMenu.select(Restaurant.label, RestaurantMenu.menu).join(Restaurant) \
+        .where(RestaurantMenu.day == requested_date) \
+        .where(Restaurant.label << requested_restaurants) \
+        .dicts()
+    menus = {}
+    for row in query:
+        menus[row["label"]] = row["menu"]
 
-    return response
+    return {"day": requested_date, "menus": [{"restaurant": restaurant, "menu": menus.get(restaurant)}
+                                             for restaurant in requested_restaurants]}
