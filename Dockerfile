@@ -12,7 +12,7 @@ USER lunch
 
 EXPOSE 8000
 
-ENV ENABLED_RESTAURANTS=asport,nepal
+ENV ENABLED_RESTAURANTS=asport,portoriko,nepal,purkynka,liquidbread,tasteofindia,kotelna,padthai,velorex,3opice
 
 ADD lunch/* /lunch/
 ADD lunch/restaurants/* /lunch/restaurants/
