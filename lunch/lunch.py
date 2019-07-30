@@ -20,8 +20,7 @@ def sync(restaurants):
             continue
         restaurant_obj = Restaurant.get(label=restaurant)
         for menu_day, menu_lines in parsed_data.items():
-            record = RestaurantMenu(restaurant=restaurant_obj, day=menu_day, menu="\n".join(menu_lines))
-            record.save()
+            RestaurantMenu.replace(restaurant=restaurant_obj, day=menu_day, menu="\n".join(menu_lines)).execute()
         logger.info("Synced %s." % restaurant)
 
 
