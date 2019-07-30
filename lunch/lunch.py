@@ -53,7 +53,7 @@ def main():
     for restaurant in enabled_restaurants:
         module = get_restaurant_module(restaurant)
         if module:
-            record = Restaurant(label=restaurant, name=module.NAME)
+            record = Restaurant(label=restaurant, name=module.NAME, url=module.URL)
             record.save()
             restaurants[restaurant] = module
             logger.info("Loaded restaurant module: %s", restaurant)

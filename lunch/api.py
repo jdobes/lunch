@@ -24,5 +24,6 @@ def get_restaurants():
     response = {"restaurants": []}
 
     for restaurant in Restaurant.select():
-        response["restaurants"].append({"label": restaurant.label, "name": restaurant.name})
+        response["restaurants"].append({"label": restaurant.label, "name": restaurant.name,
+                                        "url": restaurant.url})
     return response
