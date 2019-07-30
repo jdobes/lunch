@@ -20,6 +20,11 @@ class RestaurantMenu(BaseModel):
     day = DateField(null=False)
     menu = TextField(null=False)
 
+    class Meta:
+        indexes = (
+            (('restaurant_id', 'day'), True),
+        )
+
 
 def init_schema():
     sqlite_db.create_tables([Restaurant, RestaurantMenu])
