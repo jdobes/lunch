@@ -14,8 +14,8 @@ EXPOSE 8000
 
 ENV ENABLED_RESTAURANTS=asport,portoriko,nepal,purkynka,liquidbread,tasteofindia,kotelna,padthai,velorex,3opice
 
-ADD lunch/* /lunch/
-ADD lunch/restaurants/* /lunch/restaurants/
-ADD lunch/static/* /lunch/static/
+ADD lunch-api/* /lunch/
+ADD lunch-api/restaurants/* /lunch/restaurants/
+ADD lunch-api/static/* /lunch/static/
 
 CMD python3 -m lunch.lunch
