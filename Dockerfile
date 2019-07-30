@@ -1,6 +1,12 @@
 FROM fedora
 
-RUN dnf -y update && dnf -y install sqlite && dnf clean all
+RUN dnf -y update && dnf -y install sqlite npm && dnf clean all
+
+ADD lunch-web/*.json /lunch-web-build/
+ADD lunch-web/public/ /lunch-web-build/public/
+ADD lunch-web/src/ /lunch-web-build/src/
+RUN cd /lunch-web-build && npm install && npm run build && mkdir /lunch && \
+    mv build /lunch/web && cd / && rm -rf lunch-web-build
 
 ADD requirements.txt /
 
@@ -16,6 +22,6 @@ ENV ENABLED_RESTAURANTS=asport,portoriko,nepal,purkynka,liquidbread,tasteofindia
 
 ADD lunch-api/* /lunch/
 ADD lunch-api/restaurants/* /lunch/restaurants/
-ADD lunch-api/static/* /lunch/static/
+
 
 CMD python3 -m lunch.lunch
