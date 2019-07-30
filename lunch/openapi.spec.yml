@@ -50,7 +50,6 @@ paths:
                 properties:
                   restaurants:
                     type: array
-                    description: List of restaurants.
                     items:
                       type: object
                       properties:
@@ -67,4 +66,48 @@ paths:
                 required:
                   - restaurants
 
-
+  /api/menus:
+    get:
+      summary: Menus
+      description: Get menus for requested restaurants and date.
+      operationId: lunch.api.get_menus
+      parameters:
+        - in: query
+          name: day
+          description: Get menus for requested day.
+          example: 2019-01-01
+          schema:
+            type: string
+        - in: query
+          name: restaurants
+          description: List of restaurants.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Get menus for requested restaurants and date.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  day:
+                    type: string
+                  menus:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        restaurant:
+                          type: string
+                        menu:
+                          type: string
+                          nullable: true
+                      required:
+                        - restaurant
+                        - menu
+                required:
+                  - day
+                  - menus
+        400:
+          description: Invalid day format.
