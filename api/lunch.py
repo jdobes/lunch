@@ -44,7 +44,7 @@ def main():
     logging.basicConfig(format="%(asctime)s:%(levelname)s:%(name)s:%(message)s")
 
     enabled_restaurants = os.getenv("ENABLED_RESTAURANTS", "").split(",")
-    sync_interval_mins = int(os.getenv("SYNC_INTERVAL_MINS", "1"))
+    sync_interval_mins = int(os.getenv("SYNC_INTERVAL_MINS", "360"))
 
     init_schema()
     logger.info("Database schema initialized.")
