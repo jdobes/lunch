@@ -2,35 +2,23 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
-function MadeWithLove() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </Link>
-      {' team.'}
-    </Typography>
-  );
-}
+import RestaurantListComponent from './RestaurantList';
+
 const useStyles = makeStyles(theme => ({
   icon: {
     marginRight: theme.spacing(2),
   },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+  content: {
+    padding: theme.spacing(4, 0),
   },
   footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
+    padding: theme.spacing(8, 0),
   },
 }));
 
@@ -49,38 +37,22 @@ export default function Lunch() {
         </Toolbar>
       </AppBar>
       <main>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Album layout
-            </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              Something short and leading about the collection below—its contents, the creator, etc.
-              Make it short and sweet, but not too short so folks don&apos;t simply skip over it
-              entirely.
-            </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-
-              </Grid>
-            </div>
-          </Container>
+        <div className={classes.content}>
+          <RestaurantListComponent />
         </div>
-        {/* End hero unit */}
-        <Container className={classes.cardGrid} maxWidth="md">
-
-        </Container>
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Something here to give the footer a purpose!
+          Enjoy your meal and have a nice day!
         </Typography>
-        <MadeWithLove />
+        <Typography variant="body2" color="textSecondary" align="center">
+          {'Please visit '}
+          <Link color="primary" href="https://github.com/jdobes/lunch" target="_blank" rel="noreferrer">
+            https://github.com/jdobes/lunch
+          </Link>
+          {' if you want to improve this app or file an issue.'}
+        </Typography>
       </footer>
       {/* End footer */}
     </React.Fragment>
