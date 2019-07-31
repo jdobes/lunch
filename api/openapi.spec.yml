@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 
 info:
-  title: Lunch Helper
+  title: Lunch Picker
   version: "0.1"
 
 paths:
