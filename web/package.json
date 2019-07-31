@@ -1,10 +1,10 @@
 {
-  "name": "lunch-web",
+  "name": "lunch",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "latest",
-    "clsx": "latest",
+    "@material-ui/icons": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest"
