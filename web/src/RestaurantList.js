@@ -12,31 +12,47 @@ class RestaurantListComponent extends Component {
 
     this.state = {
       isLoading: false,
-      data: null,
+      availableRestaurants: [],
+      restaurantNameMap: {},
+      todaysMenus: []
     };
   }
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    fetch(API + '/api/restaurants')
-      .then(response => response.json())
-      .then(data => this.setState({ data, isLoading: false }));
+    Promise.all([fetch(API + '/api/restaurants'), fetch(API + '/api/menus')])
+      .then(([responseRestaurants, responseMenus]) => {
+        return Promise.all([responseRestaurants.json(), responseMenus.json()])
+      })
+      .then(([responseRestaurants, responseMenus]) => {
+        // Setup restaurant label -> name map
+        const newRestaurantNameMap = {}
+        for (const restaurantObject of responseRestaurants.restaurants.values()) {
+          newRestaurantNameMap[restaurantObject.label] = restaurantObject.name
+        }
+        this.setState({ availableRestaurants: responseRestaurants.restaurants,
+                        restaurantNameMap: newRestaurantNameMap,
+                        todaysMenus: responseMenus.menus,
+                        isLoading: false })
+      });
   }
 
   render() {
-    const { isLoading, data } = this.state;
-    if (isLoading) {
+    const { isLoading, restaurantNameMap, todaysMenus } = this.state;
+    if (isLoading || todaysMenus.length === 0) {
       return (
         <Container maxWidth="md">
           <LoadingCircleComponent />
         </Container>
       );
     }
+    const restaurantPanels = []
+    for (const value of todaysMenus.values()) {
+      restaurantPanels.push(<RestaurantComponent key={value.restaurant} name={restaurantNameMap[value.restaurant]} menu={value.menu}/>)
+    }
     return (
       <Container maxWidth="md">
-        <RestaurantComponent />
-        <RestaurantComponent />
-        <RestaurantComponent />
+        {restaurantPanels}
       </Container>
     );
   }
