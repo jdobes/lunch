@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import RestaurantComponent from './Restaurant';
 import LoadingCircleComponent from './LoadingCircle';
 
-const API = 'http://localhost:8000'
+import { config } from './Constants'
 
 class RestaurantListComponent extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class RestaurantListComponent extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    Promise.all([fetch(API + '/api/restaurants'), fetch(API + '/api/menus')])
+    Promise.all([fetch(config.API_URL + '/api/restaurants'), fetch(config.API_URL + '/api/menus')])
       .then(([responseRestaurants, responseMenus]) => {
         return Promise.all([responseRestaurants.json(), responseMenus.json()])
       })
