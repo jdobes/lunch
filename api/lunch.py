@@ -69,6 +69,14 @@ def main():
 
     app = connexion.FlaskApp(__name__, options={"swagger_ui": True, "swagger_url": "/api/"})
     app.add_api('openapi.spec.yml', validate_responses=True, strict_validation=True)
+
+    @app.app.after_request
+    def set_default_headers(response): # pylint: disable=unused-variable
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Access-Control-Allow-Headers"
+        response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+        return response
+
     app.run(host="0.0.0.0", port=8000)
 
 
