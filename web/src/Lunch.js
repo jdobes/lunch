@@ -51,7 +51,7 @@ export default function Lunch() {
           <Link color="primary" href="https://github.com/jdobes/lunch" target="_blank" rel="noreferrer">
             https://github.com/jdobes/lunch
           </Link>
-          {' if you want to improve this app or file an issue.'}
+          {' if you want to improve this app.'}
         </Typography>
       </footer>
       {/* End footer */}
