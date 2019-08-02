@@ -11,6 +11,7 @@ logger.setLevel(logging.INFO)
 
 
 def parse_menu():
+    today = date.today()
     html = fetch_html(URL)
     result = {}
     if html:
@@ -22,7 +23,11 @@ def parse_menu():
                     current_date = date(int(current_date_parts[2]),
                                         day=int(current_date_parts[0]),
                                         month=int(current_date_parts[1]))
-                    result[current_date] = []
+                    if today <= current_date:
+                        result[current_date] = []
+                    else:
+                        current_date = None
                 elif current_date:
-                    result[current_date].append(td.text)
+                    if not td.text.isspace():
+                        result[current_date].append(td.text)
     return result
