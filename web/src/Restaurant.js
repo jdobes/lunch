@@ -19,7 +19,12 @@ class RestaurantComponent extends Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Typography>
-              {this.props.menu}
+              {this.props.menu && this.props.menu.split("\n").map((item) => (
+                <span>
+                  {item}
+                  <br/>
+                </span>
+              ))}
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
