@@ -19,7 +19,7 @@ def fetch_html(url):
             response = requests.get(url)
             response.encoding = "utf-8"
             if response.status_code == 200:
-                return BeautifulSoup(response.text, features="html.parser")
+                return BeautifulSoup(response.text, features="lxml")
             logger.warning("Error during fetching url %s: HTTP %s, %s",
                            url, response.status_code, response.text)
         except requests.exceptions.RequestException:

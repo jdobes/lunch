@@ -3,3 +3,4 @@ connexion[swagger-ui]
 peewee
 requests
 beautifulsoup4
+lxml
