@@ -25,6 +25,7 @@ def parse_menu():
                 end_date = date(int(end_date_parts[2]),
                                 day=int(end_date_parts[0]),
                                 month=int(end_date_parts[1]))
+                # FIXME: doesn't work for shorter weeks
                 start_day = end_date - timedelta(days=4)
         
         if start_day:
