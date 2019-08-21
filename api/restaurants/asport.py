@@ -3,7 +3,7 @@ import logging
 
 from .utils import fetch_html
 
-NAME = "A-Sport Hotel"
+NAME = "A-Sport Hotel / Restaurace Campo"
 URL = "http://www.a-sporthotel.cz/menu/"
 
 logger = logging.getLogger(__name__)
