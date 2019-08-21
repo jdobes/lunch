@@ -53,8 +53,8 @@ def parse_menu():
                     result[current_date].append(span.text)
     return result
 
+
 if __name__ == "__main__":
     logging.basicConfig(format="%(asctime)s:%(levelname)s:%(name)s:%(message)s")
     result = parse_menu()
     logger.info(result)
-
