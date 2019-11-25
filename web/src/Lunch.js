@@ -22,6 +22,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+export function getCurrentDate(){
+  let newDate = new Date()
+  let year = newDate.getFullYear();
+  let month = newDate.getMonth();
+  let date = newDate.getDate();
+  let hour = newDate.getHours();
+  let minute = newDate.getMinutes();
+  let second = newDate.getSeconds();
+  
+  return `${year}-${month}-${date} ${hour}:${minute}:${second}`
+};
+
 export default function Lunch() {
   const classes = useStyles();
 
@@ -43,8 +55,8 @@ export default function Lunch() {
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Enjoy your meal and have a nice day!
+        <Typography variant="body2" color="textSecondary" align="center">
+          {'Page loaded at ' + getCurrentDate() + '.'}
         </Typography>
         <Typography variant="body2" color="textSecondary" align="center">
           {'Please visit '}
@@ -52,6 +64,9 @@ export default function Lunch() {
             https://github.com/jdobes/lunch
           </Link>
           {' if you want to improve this app.'}
+        </Typography>
+        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+          Enjoy your meal and have a nice day!
         </Typography>
       </footer>
       {/* End footer */}
