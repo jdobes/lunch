@@ -32,12 +32,12 @@ def parse_menu():
     result = {}
     if html:
         start_day = None
-        for p in html.find_all("p", {"align": "center"}):
-            if p.text.startswith("Polední menu"):
-                date_interval = p.text.split()[2]
+        for elem in html.find_all(["h2", "p"]):
+            if elem.text.startswith("Polední menu") or elem.text.startswith("DENNÍ MENU"):
+                date_interval = "".join(elem.text.split()[2:])
                 start_day = get_start_date(date_interval)
-            elif re.match(r"\d+\.\d+\.?-\s*\d+\.\d+\.?", p.text):
-                date_interval = p.text
+            elif re.match(r"\d+\.\d+\.?-\s*\d+\.\d+\.?", elem.text):
+                date_interval = elem.text
                 start_day = get_start_date(date_interval)
         if start_day:
             current_date = None

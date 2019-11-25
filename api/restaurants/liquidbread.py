@@ -17,9 +17,9 @@ def parse_menu():
     result = {}
     if html:
         start_day = None
-        for p in html.find_all("p", {"align": "center"}):
-            if p.text.lower().startswith("polední menu"):
-                date_interval = p.text.split()[2]
+        for elem in html.find_all(["h2", "p"]):
+            if elem.text.lower().startswith("polední menu") or elem.text.lower().startswith("denní menu"):
+                date_interval = "".join(elem.text.split()[2:])
                 end_date = date_interval.split("-")[1]
                 end_date_parts = end_date.split(".")
                 end_date = date(int(end_date_parts[2]),
@@ -31,8 +31,8 @@ def parse_menu():
         if start_day:
             current_date = None
             for span in html.find_all("p", {"align": None}):
-                if span.text.startswith("PO") or span.text.startswith("ÚT") or span.text.startswith("ST") or \
-                    span.text.startswith("ČT") or span.text.startswith("PÁ"):
+                if span.text.upper().startswith("PO") or span.text.upper().startswith("ÚT") or span.text.upper().startswith("ST") or \
+                    span.text.upper().startswith("ČT") or span.text.upper().startswith("PÁ"):
                     if current_date is None:
                         current_date = start_day
                     else:
