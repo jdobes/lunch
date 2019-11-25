@@ -18,9 +18,13 @@ def sync(restaurants):
     logger.info("Syncing menus.")
     for restaurant in restaurants:
         logger.info("Parsing: %s" % restaurant)
-        parsed_data = restaurants[restaurant].parse_menu()
+        try:
+            parsed_data = restaurants[restaurant].parse_menu()
+        except:
+            logger.exception("Unable to sync %s:", restaurant)
+            continue
         if not parsed_data:
-            logger.warning("Unable to sync: %s", restaurant)
+            logger.error("Unable to sync %s: empty response from module", restaurant)
             continue
         restaurant_obj = Restaurant.get(label=restaurant)
         for menu_day, menu_lines in parsed_data.items():
