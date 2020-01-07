@@ -1,40 +1,10 @@
 from datetime import date
 import logging
 
-import flask
-
 from .model import Restaurant, RestaurantMenu
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
-
-def get_main_page():
-    response = flask.send_file("/lunch/web/index.html")
-    response.direct_passthrough = False
-    return response
-
-
-def _get_static_file(directory, filename):
-    response = flask.send_from_directory(directory, filename)
-    response.direct_passthrough = False
-    return response
-
-
-def get_static_file_root(filename):
-    return _get_static_file("/lunch/web/", filename)
-
-
-def get_static_file_css(filename):
-    return _get_static_file("/lunch/web/static/css/", filename)
-
-
-def get_static_file_js(filename):
-    return _get_static_file("/lunch/web/static/js", filename)
-
-
-def get_static_file_media(filename):
-    return _get_static_file("/lunch/web/static/media", filename)
 
 
 def get_restaurants():

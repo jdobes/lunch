@@ -2,90 +2,9 @@ openapi: "3.0.0"
 
 info:
   title: Lunch Picker
-  version: "0.1"
+  version: "0.2"
 
 paths:
-  /:
-    get:
-      summary: Main page
-      description: Get main page
-      operationId: lunch.api.get_main_page
-      responses:
-        200:
-          description: Successfully loaded html page.
-          content:
-            text/html:
-              schema:
-                type: string
-
-  /{filename}:
-    get:
-      summary: Static files
-      description: Get static file.
-      operationId: lunch.api.get_static_file_root
-      parameters:
-        - in: path
-          name: filename
-          description: File name.
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successfully returned static file.
-        404:
-          description: File not found.
-
-  /static/css/{filename}:
-    get:
-      summary: Static files
-      description: Get static file.
-      operationId: lunch.api.get_static_file_css
-      parameters:
-        - in: path
-          name: filename
-          description: File name.
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successfully returned static file.
-        404:
-          description: File not found.
-
-  /static/js/{filename}:
-    get:
-      summary: Static files
-      description: Get static file.
-      operationId: lunch.api.get_static_file_js
-      parameters:
-        - in: path
-          name: filename
-          description: File name.
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successfully returned static file.
-        404:
-          description: File not found.
-
-  /static/media/{filename}:
-    get:
-      summary: Static files
-      description: Get static file.
-      operationId: lunch.api.get_static_file_media
-      parameters:
-        - in: path
-          name: filename
-          description: File name.
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successfully returned static file.
-        404:
-          description: File not found.
-
   /api/restaurants:
     get:
       summary: Restaurants
