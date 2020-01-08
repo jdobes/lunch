@@ -12,10 +12,13 @@ ADD web/*.json /web-build/
 ADD web/public/ /web-build/public/
 ADD web/src/ /web-build/src/
 
-RUN microdnf install npm && \
+RUN microdnf install npm python2 make gcc-c++ && \
     cd /web-build && npm ci && npm run build && \
     mv build/* /usr/share/nginx/html/ && cd / && rm -rf web-build && rm -rf /root/.npm && \
-    microdnf remove nodejs npm && microdnf clean all
+    microdnf remove binutils cpp gcc gcc-c++ gdbm glibc-devel glibc-headers isl kernel-headers libgomp libmpc libpkgconf \
+                    libstdc++-devel libxcrypt-devel make nodejs npm pkgconf pkgconf-m4 pkgconf-pkg-config \
+                    python2 python2-libs python2-pip python2-pip-wheel python2-setuptools python2-setuptools-wheel && \
+    microdnf clean all
 
 USER nginx
 
