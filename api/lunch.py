@@ -71,7 +71,8 @@ def main():
     sched.start()
     logger.info("Sync scheduler enabled to run sync every %s minute(s).", sync_interval_mins)
 
-    app = connexion.FlaskApp(__name__, options={"swagger_ui": True, "swagger_url": "/api/"})
+    app = connexion.FlaskApp(__name__, options={"swagger_ui": True, "swagger_url": "/api/",
+                                                "openapi_spec_path": "/api/openapi.json"})
     app.add_api('openapi.spec.yml', validate_responses=True, strict_validation=True)
 
     @app.app.after_request
@@ -81,7 +82,7 @@ def main():
         response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
         return response
 
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8001)
 
 
 if __name__ == "__main__":

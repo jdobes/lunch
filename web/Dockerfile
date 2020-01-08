@@ -1,7 +1,7 @@
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 
 RUN microdnf install nginx && microdnf clean all && \
-    sed -i -e 's/80 default_server;/8000 default_server;/g' \
+    sed -i -e 's/80 default_server;/8002 default_server;/g' \
            -e 's/pid \/run\/nginx.pid;/pid \/tmp\/nginx.pid;/' \
            -e 's/user nginx;/#user nginx;/' \
            -e 's/error_log \/var\/log\/nginx\/error.log;/error_log \/dev\/stderr;/' \
@@ -22,6 +22,6 @@ RUN microdnf install npm python2 make gcc-c++ && \
 
 USER nginx
 
-EXPOSE 8000
+EXPOSE 8002
 
 CMD ["nginx", "-g", "daemon off;"]
