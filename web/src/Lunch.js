@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 
+import { isDev } from './Constants'
 import RestaurantListComponent from './RestaurantList';
 
 const useStyles = makeStyles(theme => ({
@@ -68,6 +69,11 @@ export default function Lunch() {
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
           Enjoy your meal and have a nice day!
         </Typography>
+        {isDev ? (
+          <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+            WARNING: THIS IS DEV BUILD.
+          </Typography>
+        ) : (null)}
       </footer>
       {/* End footer */}
     </React.Fragment>
