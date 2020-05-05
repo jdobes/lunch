@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import date
+from datetime import date, datetime, timedelta
 import logging
 
 from .utils import fetch_html
@@ -13,6 +13,7 @@ logger.setLevel(logging.INFO)
 
 def parse_menu():
     today = date.today()
+    last_monday = today - timedelta(days=today.weekday())
     html = fetch_html(URL)
     result = {}
     if html:
@@ -22,18 +23,19 @@ def parse_menu():
             for td in table.find_all("td"):
                 date_span = td.find("span")
                 if date_span:
-                    current_date = "%s.%s" % (date_span.text.split("/")[-1], today.year)
-                    current_date_parts = current_date.split(".")
-                    current_date = date(int(current_date_parts[2]),
-                                        day=int(current_date_parts[0]),
-                                        month=int(current_date_parts[1]))
-                    if today <= current_date:
-                        result[current_date] = []
-                    else:
-                        current_date = None
+                    if "PONDĚLÍ" in date_span.text.upper() or \
+                        "ÚTERÝ" in date_span.text.upper() or \
+                            "STŘEDA" in date_span.text.upper() or \
+                                "ČTVRTEK" in date_span.text.upper() or \
+                                    "PÁTEK" in date_span.text.upper():
+                                    if current_date is None:
+                                        current_date = last_monday
+                                    else:
+                                        current_date += timedelta(days=1)
+                    result[current_date] = []
                 elif current_date:
                     if td.text.endswith("Kč"):
                         result[current_date][-1] += " %s" % td.text
-                    elif not td.text.isspace():
-                        result[current_date].append(td.text)
+                    elif not td.text.strip().isspace() and td.text.strip() not in result[current_date]:
+                        result[current_date].append(td.text.strip())
     return result
