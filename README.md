@@ -11,6 +11,12 @@
     podman pod stop lunch
     podman pod rm lunch
 
+    Release:
+    podman build -t registry.owny.cz/lunch/lunch_api -f api/Dockerfile .
+    podman build -t registry.owny.cz/lunch/lunch_web -f web/Dockerfile .
+    podman push registry.owny.cz/lunch/lunch_api
+    podman push registry.owny.cz/lunch/lunch_web
+
     Test:
     Main page: http://localhost:8000/
     Swagger UI: http://localhost:8000/api/
