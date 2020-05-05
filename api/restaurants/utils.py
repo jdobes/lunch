@@ -49,7 +49,7 @@ def parse_zomato(zomato_json):
         daily_menus = zomato_json["daily_menus"]
         for daily_menu in daily_menus:
             daily_menu = daily_menu["daily_menu"]
-            current_date = datetime.strptime(daily_menu["start_date"].split()[0], "%Y-%m-%d")
+            current_date = datetime.strptime(daily_menu["start_date"].split()[0], "%Y-%m-%d").date()
             result[current_date] = []
             for dish in daily_menu["dishes"]:
                 dish = dish["dish"]

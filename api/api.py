@@ -19,7 +19,7 @@ def get_restaurants():
 def get_menus(day=None, restaurants=None):
     if day:
         try:
-            requested_date = datetime.strptime(day, "%Y-%m-%d")
+            requested_date = datetime.strptime(day, "%Y-%m-%d").date()
         except ValueError:
             return "Invalid day format: %s" % day, 400
     else:
