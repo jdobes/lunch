@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 import logging
 
 from .model import Restaurant, RestaurantMenu
@@ -19,7 +19,7 @@ def get_restaurants():
 def get_menus(day=None, restaurants=None):
     if day:
         try:
-            requested_date = date.fromisoformat(day)
+            requested_date = datetime.strptime(day, "%Y-%m-%d")
         except ValueError:
             return "Invalid day format: %s" % day, 400
     else:
