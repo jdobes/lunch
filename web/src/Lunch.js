@@ -26,11 +26,11 @@ const useStyles = makeStyles(theme => ({
 export function getCurrentDate(){
   let newDate = new Date()
   let year = newDate.getFullYear();
-  let month = newDate.getMonth();
-  let date = newDate.getDate();
-  let hour = newDate.getHours();
-  let minute = newDate.getMinutes();
-  let second = newDate.getSeconds();
+  let month = ("0" + (newDate.getMonth() + 1)).slice(-2);
+  let date = ("0" + newDate.getDate()).slice(-2);
+  let hour = ("0" + newDate.getHours()).slice(-2);
+  let minute = ("0" + newDate.getMinutes()).slice(-2);
+  let second = ("0" + newDate.getSeconds()).slice(-2);
   
   return `${year}-${month}-${date} ${hour}:${minute}:${second}`
 };
