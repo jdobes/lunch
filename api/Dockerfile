@@ -19,6 +19,6 @@ USER lunch
 
 EXPOSE 8001
 
-ENV ENABLED_RESTAURANTS=asport,portoriko,nepal,purkynka,liquidbread,tasteofindia,kotelna,padthai,velorex,3opice
+ENV ENABLED_RESTAURANTS=asport,portoriko,nepal,purkynka,tasteofindia,kotelna,padthai,velorex,3opice
 
 CMD python3 -m lunch.lunch
