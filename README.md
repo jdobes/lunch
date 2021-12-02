@@ -1,22 +1,19 @@
-    Build:
-    podman build -t lunch_api -f api/Dockerfile .
-    podman build -t lunch_web -f web/Dockerfile .
-    podman build -t lunch_proxy -f proxy/Dockerfile .
+    Components:
+    - API - Python app running on port 8001
+    - Web - React app running on port 8002
+    - Proxy - Nginx proxy running on port 8000 (Not needed in prod-like envs)
 
-    Run:
-    podman pod create -n lunch -p 8000:8000
-    podman run --pod lunch --rm -e ZOMATO_API_KEY= --name lunch_api lunch_api
-    podman run --pod lunch -it --rm --name lunch_web lunch_web
-    podman run --pod lunch -it --rm --name lunch_proxy lunch_proxy
-    podman pod stop lunch
-    podman pod rm lunch
-
-    Release:
-    podman build -t registry.owny.cz/lunch/lunch_api -f api/Dockerfile .
-    podman build -t registry.owny.cz/lunch/lunch_web -f web/Dockerfile .
-    podman push registry.owny.cz/lunch/lunch_api
-    podman push registry.owny.cz/lunch/lunch_web
+    Build and run:
+    docker-compose up --build
 
     Test:
     Main page: http://localhost:8000/
     Swagger UI: http://localhost:8000/api/
+
+    Frontend Development:
+    docker-compose start lunch-api
+    npm start
+
+    Release:
+    docker buildx build -f ./api/Dockerfile --platform linux/amd64,linux/arm64 --push -t jdobes/lunch_api:latest -t jdobes/lunch_api:0.1 .
+    docker buildx build -f ./web/Dockerfile --platform linux/amd64,linux/arm64 --push -t jdobes/lunch_web:latest -t jdobes/lunch_web:0.1 .

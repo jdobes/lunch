@@ -1,7 +1,11 @@
+import os
 from peewee import SqliteDatabase, Model, TextField, ForeignKeyField, DateField
 
-sqlite_db = SqliteDatabase("/tmp/lunch.db", pragmas={"journal_mode": "wal",
-                                                     "foreign_keys": 1})
+DB_FILE = "/tmp/lunch.db"
+if os.path.isfile(DB_FILE):
+    os.unlink(DB_FILE)
+sqlite_db = SqliteDatabase(DB_FILE, pragmas={"journal_mode": "wal",
+                                             "foreign_keys": 1})
 
 
 class BaseModel(Model):

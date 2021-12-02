@@ -2,7 +2,8 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal
 
 ADD api/*.txt /lunch/
 
-RUN microdnf install sqlite python3 shadow-utils && microdnf clean all && \
+RUN microdnf install sqlite python3 shadow-utils \
+    libxml2-devel libxslt-devel gcc python3-devel && microdnf clean all && \
     pip3 install -r /lunch/requirements.txt && \
     rm -rf /root/.cache
 

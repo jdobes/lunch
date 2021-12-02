@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  lunch-api:
+    build:
+      context: ./
+      dockerfile: ./api/Dockerfile
+    image: lunch_api:latest
+    container_name: lunch_api
+    ports:
+      - "8001:8001"
+    environment:
+      - ZOMATO_API_KEY=key
+  lunch-web:
+    build:
+      context: ./
+      dockerfile: ./web/Dockerfile
+    image: lunch_web:latest
+    container_name: lunch_web
+    ports:
+      - "8002:8002"
+  lunch-proxy:
+    build:
+      context: ./
+      dockerfile: ./proxy/Dockerfile
+    image: lunch_proxy:latest
+    container_name: lunch_proxy
+    ports:
+      - "8000:8000"

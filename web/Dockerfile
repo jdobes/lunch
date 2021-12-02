@@ -17,7 +17,8 @@ RUN microdnf install npm python2 make gcc-c++ && \
     mv build/* /usr/share/nginx/html/ && cd / && rm -rf web-build && rm -rf /root/.npm && rm -rf /root/.node-gyp && \
     microdnf remove binutils cpp gcc gcc-c++ gdbm glibc-devel glibc-headers isl kernel-headers libgomp libmpc libpkgconf \
                     libstdc++-devel libxcrypt-devel make nodejs npm pkgconf pkgconf-m4 pkgconf-pkg-config \
-                    python2 python2-libs python2-pip python2-pip-wheel python2-setuptools python2-setuptools-wheel && \
+                    python2 python2-libs python2-pip python2-pip-wheel python2-setuptools python2-setuptools-wheel \
+                    nodejs-full-i18n && \
     microdnf clean all
 
 USER nginx
