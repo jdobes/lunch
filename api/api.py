@@ -1,5 +1,8 @@
+import os
 from datetime import date, datetime
 import logging
+
+import pytz
 
 from .model import Restaurant, RestaurantMenu
 
@@ -23,7 +26,8 @@ def get_menus(day=None, restaurants=None):
         except ValueError:
             return "Invalid day format: %s" % day, 400
     else:
-        requested_date = date.today()
+        now = datetime.now(pytz.timezone(os.getenv("TZ")))
+        requested_date = date(now.year, now.month, now.day)
     
     if restaurants:
         requested_restaurants = restaurants.split(",")

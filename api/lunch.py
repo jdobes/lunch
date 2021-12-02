@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 import os
 import importlib
 import logging
@@ -6,7 +6,7 @@ import sys
 
 from apscheduler.schedulers.background import BackgroundScheduler
 import connexion
-from peewee import DateField
+import pytz
 
 from .model import init_schema, Restaurant, RestaurantMenu
 
@@ -32,7 +32,9 @@ def sync(restaurants):
         logger.info("Synced: %s" % restaurant)
     logger.info("Menus synced.")
     logger.info("Deleting old menus.")
-    query = RestaurantMenu.delete().where(RestaurantMenu.day < date.today())
+    now = datetime.now(pytz.timezone(os.getenv("TZ")))
+    today = date(now.year, now.month, now.day)
+    query = RestaurantMenu.delete().where(RestaurantMenu.day < today)
     deleted = query.execute()
     logger.info("%s old menu(s) deleted.", deleted)
 

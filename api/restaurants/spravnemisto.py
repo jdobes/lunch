@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from .utils import fetch_menicka, parse_menicka
 
-NAME = "U Kotelny"
-URL = "https://www.menicka.cz/3934-u-kotelny.html"
-RESTAURANT_ID = "3934"
+NAME = "Správné Místo"
+URL = "https://www.menicka.cz/5335-spravne-misto.html"
+RESTAURANT_ID = "5335"
 
 
 def parse_menu():

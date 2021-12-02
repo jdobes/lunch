@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from .utils import fetch_zomato, parse_zomato
+from .utils import fetch_menicka, parse_menicka
 
 NAME = "U 3 Opic"
-URL = "http://www.u3opic.cz/denni-menu/"
-RESTAURANT_ID = "16505998"
+URL = "https://www.menicka.cz/3225-u-3-opic-.html"
+RESTAURANT_ID = "3225"
 
 
 def parse_menu():
-    zomato_json = fetch_zomato(RESTAURANT_ID)
-    return parse_zomato(zomato_json)
+    menicka_html = fetch_menicka(RESTAURANT_ID)
+    return parse_menicka(menicka_html)
