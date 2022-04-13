@@ -4,7 +4,7 @@ import logging
 
 from .utils import fetch_html
 
-NAME = "Velorex"
+NAME = "Prime Steak / Velorex"
 URL = "https://www.primesteak.cz/menu/denni-menu/"
 
 def parse_menu():
