@@ -1,11 +1,25 @@
 # -*- coding: utf-8 -*-
-from .utils import fetch_menicka, parse_menicka
+from datetime import date, datetime, timedelta
+import logging
+
+from .utils import fetch_html
 
 NAME = "Velorex"
-URL = "https://www.menicka.cz/6714-velorex.html"
-RESTAURANT_ID = "6714"
-
+URL = "https://www.primesteak.cz/menu/denni-menu/"
 
 def parse_menu():
-    menicka_html = fetch_menicka(RESTAURANT_ID)
-    return parse_menicka(menicka_html)
+    today = date.today()
+    html = fetch_html(URL)
+    result = {}
+    if html:
+        menu = html.find('div', { 'class': 'menu today'})
+        if menu:
+            result[today] = []
+            for tr in menu.find_all('tr'):
+                line = [td.text.strip() for td in tr.find_all('td')]
+                result[today].append(' '.join(line))
+
+    return result
+
+if __name__ == '__main__':
+    print(parse_menu())
