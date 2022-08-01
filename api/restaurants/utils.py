@@ -72,5 +72,7 @@ def parse_menicka(html):
             current_date = datetime.strptime(h2.text.split()[1], "%d.%m.%Y").date()
             result[current_date] = []
             for tr in content.find_all("tr"):
+                for alergen in tr.find_all("em"):
+                    alergen.extract()
                 result[current_date].append(tr.text)
     return result
