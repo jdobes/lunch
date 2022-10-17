@@ -4,3 +4,4 @@ peewee
 requests
 beautifulsoup4
 lxml
+unidecode

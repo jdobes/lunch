@@ -2,8 +2,8 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal
 
 ADD api/*.txt /lunch/
 
-RUN microdnf install sqlite python3 shadow-utils \
-    libxml2-devel libxslt-devel gcc python3-devel && microdnf clean all && \
+RUN microdnf install sqlite python39 shadow-utils \
+    libxml2-devel libxslt-devel gcc python39-devel && microdnf clean all && \
     pip3 install -r /lunch/requirements.txt && \
     rm -rf /root/.cache
 
@@ -21,6 +21,6 @@ USER lunch
 
 EXPOSE 8001
 
-ENV ENABLED_RESTAURANTS=asport,portoriko,nepal,purkynka,velorex,uhrebicku,kotelna,padthai,3opice,spravnemisto
+ENV ENABLED_RESTAURANTS=asport,portoriko,nepal,purkynka,velorex,uhrebicku,kotelna,padthai,3opice,spravnemisto,sesamo,jeanpauls
 
 CMD python3 -m lunch.lunch
