@@ -6,7 +6,7 @@ from unidecode import unidecode
 
 from .utils import fetch_html
 
-NAME = "Royal Nepál"
+NAME = "Royal Nepal"
 URL = "https://www.royalnepal.cz/#daily-menu"
 
 logger = logging.getLogger(__name__)

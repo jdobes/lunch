@@ -4,7 +4,7 @@ import logging
 
 from .utils import fetch_html
 
-NAME = "Nepál"
+NAME = "TikTok Nepal"
 URL = "http://nepalbrno.cz/weekly-menu/"
 
 logger = logging.getLogger(__name__)
