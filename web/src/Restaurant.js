@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Typography from '@material-ui/core/Typography';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Typography from '@mui/material/Typography';
 
 class RestaurantComponent extends Component {
   render() {
       return (
-        <ExpansionPanel disabled={!this.props.menu}>
-          <ExpansionPanelSummary
+        <Accordion disabled={!this.props.menu}>
+          <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel-content"
           id="panel-header"
           >
             <Typography variant="h6">{this.props.name}</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          </AccordionSummary>
+          <AccordionDetails>
             <Typography>
               {this.props.menu && this.props.menu.split("\n").map((item) => (
                 <span>
@@ -26,8 +26,8 @@ class RestaurantComponent extends Component {
                 </span>
               ))}
             </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+          </AccordionDetails>
+        </Accordion>
       );
   }
 }

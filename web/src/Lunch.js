@@ -1,27 +1,17 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import RestaurantIcon from '@material-ui/icons/Restaurant';
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+import AppBar from '@mui/material/AppBar';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Box } from '@mui/material';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { createTheme } from '@mui/material/styles';
+import Link from '@mui/material/Link';
 
 import { isDev } from './Constants'
 import RestaurantListComponent from './RestaurantList';
 
-const useStyles = makeStyles(theme => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-  content: {
-    padding: theme.spacing(4, 0),
-  },
-  footer: {
-    padding: theme.spacing(8, 0),
-  },
-}));
+const theme = createTheme();
 
 export function getCurrentDate(){
   let newDate = new Date()
@@ -31,31 +21,34 @@ export function getCurrentDate(){
   let hour = ("0" + newDate.getHours()).slice(-2);
   let minute = ("0" + newDate.getMinutes()).slice(-2);
   let second = ("0" + newDate.getSeconds()).slice(-2);
-  
+
   return `${year}-${month}-${date} ${hour}:${minute}:${second}`
 };
 
 export default function Lunch() {
-  const classes = useStyles();
-
+  //const classes = useStyles();
+  // className={classes.icon}
+  // className={classes.content}
+  // className={classes.footer}
   return (
     <React.Fragment>
       <CssBaseline />
       <AppBar position="relative" color="primary">
         <Toolbar>
-          <RestaurantIcon className={classes.icon} />
+          <RestaurantIcon sx={{ marginRight: theme.spacing(2) }} />
           <Typography variant="h6" color="inherit" noWrap>
             Lunch Picker
           </Typography>
         </Toolbar>
       </AppBar>
       <main>
-        <div className={classes.content}>
+        <Box sx={{ padding: theme.spacing(4, 0) }}>
           <RestaurantListComponent />
-        </div>
+        </Box>
       </main>
       {/* Footer */}
-      <footer className={classes.footer}>
+      <Box sx={{ padding: theme.spacing(8, 0) }}>
+      <footer>
         <Typography variant="body2" color="textSecondary" align="center">
           {'Page loaded at ' + getCurrentDate() + '.'}
         </Typography>
@@ -75,6 +68,7 @@ export default function Lunch() {
           </Typography>
         ) : (null)}
       </footer>
+      </Box>
       {/* End footer */}
     </React.Fragment>
   );

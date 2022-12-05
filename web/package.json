@@ -3,8 +3,10 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "latest",
-    "@material-ui/icons": "latest",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/material": "latest",
+    "@mui/icons-material": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest"

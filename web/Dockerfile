@@ -12,7 +12,8 @@ ADD web/*.json /web-build/
 ADD web/public/ /web-build/public/
 ADD web/src/ /web-build/src/
 
-RUN microdnf install npm python2 make gcc-c++ && \
+RUN microdnf module enable nodejs:18 && \
+    microdnf install npm python2 make gcc-c++ && \
     cd /web-build && npm ci && npm run build && \
     mv build/* /usr/share/nginx/html/ && cd / && rm -rf web-build && rm -rf /root/.npm && rm -rf /root/.node-gyp && \
     microdnf remove binutils cpp gcc gcc-c++ gdbm glibc-devel glibc-headers isl kernel-headers libgomp libmpc libpkgconf \

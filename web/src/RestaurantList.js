@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 
 import RestaurantComponent from './Restaurant';
 import LoadingCircleComponent from './LoadingCircle';
