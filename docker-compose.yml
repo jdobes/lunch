@@ -8,8 +8,6 @@ services:
     container_name: lunch_api
     ports:
       - "8001:8001"
-    environment:
-      - ZOMATO_API_KEY=key
   lunch-web:
     build:
       context: ./
