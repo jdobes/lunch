@@ -50,7 +50,8 @@ def main():
     logging.basicConfig(format="%(asctime)s:%(levelname)s:%(name)s:%(message)s")
 
     enabled_restaurants = os.getenv("ENABLED_RESTAURANTS", "").split(",")
-    sync_interval_mins = int(os.getenv("SYNC_INTERVAL_MINS", "360"))
+    sync_days = os.getenv("SYNC_DAYS", "mon-fri")
+    sync_hours = os.getenv("SYNC_HOURS", "8-15")
 
     init_schema()
     logger.info("Database schema initialized.")
@@ -69,9 +70,9 @@ def main():
 
     sync(restaurants)
     sched = BackgroundScheduler(daemon=True)
-    sched.add_job(sync, 'interval', [restaurants], minutes=sync_interval_mins)
+    sched.add_job(sync, 'cron', [restaurants], day_of_week=sync_days, hour=sync_hours)
     sched.start()
-    logger.info("Sync scheduler enabled to run sync every %s minute(s).", sync_interval_mins)
+    logger.info("Sync scheduler enabled to run in following schedule: %s, %s", sync_days, sync_hours)
 
     app = connexion.FlaskApp(__name__, options={"swagger_ui": True, "swagger_url": "/api/",
                                                 "openapi_spec_path": "/api/openapi.json"})
