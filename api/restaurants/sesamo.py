@@ -27,34 +27,40 @@ def parse_menu():
     html = fetch_html(URL)
     result = {}
     if html:
-        current_date = last_monday
-        polevka = None
+        current_date = None
+        all_days_menu = []
         buffered_lines = []
         menu = html.find("article").find("table")
         for tr in menu.find_all('tr'):
-            if not polevka:
-                polevka = format_menu_line(tr)
             if "pondeli" in format_date_line(tr):
-                buffered_lines = [polevka]
+                buffered_lines = all_days_menu.copy()
+                current_date = last_monday
             elif "utery" in format_date_line(tr):
-                result[current_date] = buffered_lines if len(buffered_lines) > 1 else []
-                buffered_lines = [polevka]
+                if current_date:
+                    result[current_date] = buffered_lines
+                buffered_lines = all_days_menu.copy()
                 current_date = last_monday + timedelta(days=1)
             elif "streda" in format_date_line(tr):
-                result[current_date] = buffered_lines if len(buffered_lines) > 1 else []
-                buffered_lines = [polevka]
+                if current_date:
+                    result[current_date] = buffered_lines
+                buffered_lines = all_days_menu.copy()
                 current_date = last_monday + timedelta(days=2)
             elif "ctvrtek" in format_date_line(tr):
-                result[current_date] = buffered_lines if len(buffered_lines) > 1 else []
-                buffered_lines = [polevka]
+                if current_date:
+                    result[current_date] = buffered_lines
+                buffered_lines = all_days_menu.copy()
                 current_date = last_monday + timedelta(days=3)
             elif "patek" in format_date_line(tr):
-                result[current_date] = buffered_lines if len(buffered_lines) > 1 else []
-                buffered_lines = [polevka]
+                if current_date:
+                    result[current_date] = buffered_lines
+                buffered_lines = all_days_menu.copy()
                 current_date = last_monday + timedelta(days=4)
             else:
-                buffered_lines.append(format_menu_line(tr))
+                if not current_date:
+                    all_days_menu.append(format_menu_line(tr))
+                else:
+                    buffered_lines.append(format_menu_line(tr))
         if current_date:
-            result[current_date] = buffered_lines if len(buffered_lines) > 1 else []
+            result[current_date] = buffered_lines
 
     return result
