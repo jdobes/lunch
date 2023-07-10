@@ -7,31 +7,14 @@ from unidecode import unidecode
 from .utils import fetch_html
 
 NAME = "Royal Nepal"
-URL = "https://www.royalnepal.cz/#daily-menu"
+URL = "https://www.royalnepal.cz/kralovo-pole/weekly-menu"
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-def format_date_line(day_menu):
-    day = day_menu.find("p", {"class": "weeklyDay"})
-    if day:
-        return unidecode(day.text.lower())
-    else:
-        return ""
-
-
-def format_menu(day_menu):
-    lines = []
-    for table in day_menu.find_all("table", {"class": "mealContainer"}):
-        for tr in table.find_all("tr", {"class": "menuPageMealName"}):
-            buff = []
-            for td in tr.find_all("td"):
-                text = td.text.strip()
-                if text:
-                    buff.append(text)
-            lines.append(" ".join(buff))
-    return lines
+def format_line(row):
+    return " ".join([col.text.strip().replace("\n", "") for col in row.find_all("div", recursive=False)])
 
 
 def parse_menu():
@@ -40,22 +23,19 @@ def parse_menu():
     html = fetch_html(URL)
     result = {}
     if html:
-        current_date = last_monday
-        menu = html.find("ul", {"class": "daily-menu"})
-        for day_menu in menu.find_all('div', {"class": "weeklyDayCont"}):
-            if "pondeli" in format_date_line(day_menu):
-                result[current_date] = format_menu(day_menu)
-            elif "utery" in format_date_line(day_menu):
+        current_date = None
+        for row in html.find_all("div", {"class": "row"}):
+            txt = format_line(row)
+            if "pondeli" in unidecode(txt.lower()):
+                current_date = last_monday
+            elif "utery" in unidecode(txt.lower()):
                 current_date = last_monday + timedelta(days=1)
-                result[current_date] = format_menu(day_menu)
-            elif "streda" in format_date_line(day_menu):
+            elif "streda" in unidecode(txt.lower()):
                 current_date = last_monday + timedelta(days=2)
-                result[current_date] = format_menu(day_menu)
-            elif "ctvrtek" in format_date_line(day_menu):
+            elif "ctvrtek" in unidecode(txt.lower()):
                 current_date = last_monday + timedelta(days=3)
-                result[current_date] = format_menu(day_menu)
-            elif "patek" in format_date_line(day_menu):
+            elif "patek" in unidecode(txt.lower()):
                 current_date = last_monday + timedelta(days=4)
-                result[current_date] = format_menu(day_menu)
-
+            elif current_date and txt:
+                result.setdefault(current_date, []).append(txt)
     return result
