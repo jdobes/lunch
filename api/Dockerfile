@@ -21,6 +21,6 @@ USER lunch
 
 EXPOSE 8001
 
-ENV ENABLED_RESTAURANTS=asport,portoriko,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,spravnemisto,sesamo,jeanpauls,rubin
+ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,portoriko,kanas_restaurant,kanas_jidelna,vitalite,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,spravnemisto,sesamo,jeanpauls,rubin
 
 CMD python3 -m lunch.lunch
