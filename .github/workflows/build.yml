@@ -12,27 +12,23 @@ jobs:
       REGISTRY: docker.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
       REGISTRY_PASS: ${{ secrets.REGISTRY_PASS }}
-      REPO_API: jdobes/lunch_api
-      REPO_WEB: jdobes/lunch_web
+      REPO: jdobes/lunch
       PLATFORM: linux/amd64,linux/arm64
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Build React app
+        run: |
+          ./build_web.sh
       - name: Install qemu-user-static for multi-arch build
         run: |
           sudo apt update && sudo apt install -y qemu-user-static
       - name: Login to registry
         run: |
           echo "$REGISTRY_PASS" | podman login -u "$REGISTRY_USER" --password-stdin "$REGISTRY"
-      - name: Build API image
+      - name: Build image
         run: |
-          podman build -f ./api/Dockerfile --platform "$PLATFORM" --manifest lunch_api .
-      - name: Push API image
+          podman build -f ./Dockerfile --platform "$PLATFORM" --manifest lunch .
+      - name: Push image
         run: |
-          podman manifest push --all lunch_api docker://$REGISTRY/$REPO_API:$(git rev-parse --short HEAD)
-      - name: Build Web image
-        run: |
-          podman build -f ./web/Dockerfile --platform "$PLATFORM" --manifest lunch_web .
-      - name: Push Web image
-        run: |
-          podman manifest push --all lunch_web docker://$REGISTRY/$REPO_WEB:$(git rev-parse --short HEAD)
+          podman manifest push --all lunch docker://$REGISTRY/$REPO:$(git rev-parse --short HEAD)
