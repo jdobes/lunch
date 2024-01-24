@@ -2,10 +2,14 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal
 
 ADD api/*.txt /lunch/
 
-RUN microdnf module enable nginx:1.22 && \
+RUN rpm -Uvh http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-stream-repos-8-6.el8.noarch.rpm \
+             http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-gpg-keys-8-6.el8.noarch.rpm && \
+    sed -i 's/^\(enabled.*\)/\1\npriority=200/;' /etc/yum.repos.d/CentOS*.repo && \
+    microdnf install epel-release && \
+    microdnf module enable nginx:1.22 && \
     microdnf install sqlite python39 shadow-utils \
                      libxml2-devel libxslt-devel gcc \
-                     python39-devel nginx && \
+                     python39-devel nginx chromium && \
     microdnf clean all && \
     pip3 install -r /lunch/requirements.txt && \
     rm -rf /root/.cache
@@ -25,4 +29,4 @@ ADD web/build/*           /usr/share/nginx/html/
 ADD web/build/static/js/* /usr/share/nginx/html/static/js/
 ADD web/nginx.conf        /etc/nginx/nginx.conf
 
-ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,portoriko,kanas_restaurant,kanas_jidelna,vitalite,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,spravnemisto,sesamo,jeanpauls,rubin
+ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,qwerty,portoriko,kanas_restaurant,kanas_jidelna,vitalite,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,spravnemisto,sesamo,jeanpauls,rubin
