@@ -15,8 +15,7 @@ def parse_menu():
     result = {}
     last_monday = date.today() - timedelta(days=date.today().weekday())
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True,
-                                             executable_path="/usr/bin/chromium-browser")
+        browser = playwright.firefox.launch(headless=True)
         context = browser.new_context(
             viewport={"width": 1080, "height": 1920},
             locale="cs-CZ"

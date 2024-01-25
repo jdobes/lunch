@@ -2,17 +2,14 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal
 
 ADD api/*.txt /lunch/
 
-RUN rpm -Uvh http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-stream-repos-8-6.el8.noarch.rpm \
-             http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-gpg-keys-8-6.el8.noarch.rpm && \
-    sed -i 's/^\(enabled.*\)/\1\npriority=200/;' /etc/yum.repos.d/CentOS*.repo && \
-    microdnf install epel-release && \
-    microdnf module enable nginx:1.22 && \
+RUN microdnf module enable nginx:1.22 && \
     microdnf install sqlite python39 shadow-utils \
                      libxml2-devel libxslt-devel gcc \
-                     python39-devel nginx chromium && \
+                     python39-devel nginx \
+                     gtk3 alsa-lib libX11-xcb && \
     microdnf clean all && \
-    pip3 install -r /lunch/requirements.txt && \
-    rm -rf /root/.cache
+    pip3 install --no-cache-dir -r /lunch/requirements.txt && \
+    playwright install firefox
 
 ENV TZ="Europe/Prague"
 # apscheduler fix
