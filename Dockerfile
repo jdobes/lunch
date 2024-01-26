@@ -11,6 +11,7 @@ RUN microdnf module enable nginx:1.22 && \
     pip3 install --no-cache-dir -r /lunch/requirements.txt && \
     playwright install firefox
 
+ENV PLAYWRIGHT_PROXY=""
 ENV TZ="Europe/Prague"
 # apscheduler fix
 RUN echo "Europe/Prague" > /etc/timezone

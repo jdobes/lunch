@@ -1,11 +1,14 @@
 from datetime import date, timedelta
 import logging
+import os
 
 from playwright.sync_api import sync_playwright, expect
 from unidecode import unidecode
 
 NAME = "Qwerty"
 URL = "https://www.facebook.com/QwertyRestaurant"
+
+PLAYWRIGHT_PROXY = os.getenv("PLAYWRIGHT_PROXY", "")
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -15,11 +18,14 @@ def parse_menu():
     result = {}
     last_monday = date.today() - timedelta(days=date.today().weekday())
     with sync_playwright() as playwright:
+        kwargs = {
+            "viewport": {"width": 1080, "height": 1920},
+            "locale": "cs-CZ"
+        }
+        if PLAYWRIGHT_PROXY:
+            kwargs["proxy"] = {"server": PLAYWRIGHT_PROXY}
         browser = playwright.firefox.launch(headless=True)
-        context = browser.new_context(
-            viewport={"width": 1080, "height": 1920},
-            locale="cs-CZ"
-        )
+        context = browser.new_context(**kwargs)
         page = context.new_page()
         page.goto(URL)
 
