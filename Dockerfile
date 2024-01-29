@@ -5,7 +5,7 @@ ADD api/*.txt /lunch/
 RUN microdnf module enable nginx:1.22 && \
     microdnf install sqlite python39 shadow-utils \
                      libxml2-devel libxslt-devel gcc \
-                     python39-devel nginx \
+                     python39-devel nginx poppler-utils \
                      gtk3 alsa-lib libX11-xcb && \
     microdnf clean all && \
     pip3 install --no-cache-dir -r /lunch/requirements.txt && \

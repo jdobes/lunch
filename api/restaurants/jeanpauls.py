@@ -1,37 +1,71 @@
 # -*- coding: utf-8 -*-
 from datetime import date, timedelta
+import logging
+import subprocess
+import tempfile
 
-from .utils import fetch_html
+from unidecode import unidecode
+
+from .utils import fetch
 
 NAME = "Jean Paul's"
-URL = "https://www.jpbistro.cz/menu-technopark/index.php"
+URL = "https://www.jpbistro.cz/assets/menu/obed-menu/obed-technopark.pdf"
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 def parse_menu():
-    today = date.today()
-    last_monday = today - timedelta(days=today.weekday())
-    html = fetch_html(URL)
+    response = fetch(URL, stream=True)
+    with tempfile.NamedTemporaryFile() as fp:
+        for chunk in response.iter_content(chunk_size=1024):
+            if chunk:
+                fp.write(chunk)
+        fp.flush()
+
+        pdf_raw_text = subprocess.check_output(["pdftotext", "-q", "-layout", "-f", "1", "-l", "1", fp.name, "-"])
+        lines = pdf_raw_text.decode("utf-8").split("\n")
+
+
     result = {}
-    if html:
-        current_date = None
-        menu = html.find('div', { 'class': 'denni-menu'})
-        if menu:
-            for tag in menu:
-                if tag.name == "h2":
-                    if "pondělí" in tag.text.lower():
-                        current_date = last_monday
-                    elif "úterý" in tag.text.lower():
-                        current_date = last_monday + timedelta(days=1)
-                    elif "středa" in tag.text.lower():
-                        current_date = last_monday + timedelta(days=2)
-                    elif "čtvrtek" in tag.text.lower():
-                        current_date = last_monday + timedelta(days=3)
-                    elif "pátek" in tag.text.lower():
-                        current_date = last_monday + timedelta(days=4)
-                elif tag.name == "table" and current_date:
-                    result[current_date] = []
-                    for tr in tag.find_all('tr'):
-                        line = [td.text.strip() for td in tr.find_all('td')]
-                        result[current_date].append(' '.join(line))
+    last_monday = date.today() - timedelta(days=date.today().weekday())
+
+    all_week_menu_started = False
+    all_week_menu = []
+
+    current_date = None
+    for line in lines:
+        if "pondeli" in unidecode(line.lower()):
+            current_date = last_monday
+        elif "utery" in unidecode(line.lower()):
+            current_date = last_monday + timedelta(days=1)
+        elif "streda" in unidecode(line.lower()):
+            current_date = last_monday + timedelta(days=2)
+        elif "ctvrtek" in unidecode(line.lower()):
+            current_date = last_monday + timedelta(days=3)
+        elif "patek" in unidecode(line.lower()):
+            current_date = last_monday + timedelta(days=4)
+        elif "obedove menu" in unidecode(line.lower()):
+            pass
+        elif "tydenni menu" in unidecode(line.lower()):
+            current_date = None
+            all_week_menu_started = True
+            all_week_menu.append("")
+            all_week_menu.append(line.strip())
+        elif current_date and line.strip():
+            result.setdefault(current_date, []).append(line.strip())
+        elif all_week_menu_started and not line.startswith(" "):
+            all_week_menu.append(line.strip())
+
+    # Copy all week menu to all days
+    for days_offset in range(5):
+        current_date = last_monday + timedelta(days=days_offset)
+        result.setdefault(current_date, []).extend(all_week_menu)
 
     return result
+
+
+if __name__ == "__main__":
+    # Debugging
+    logging.basicConfig(format="%(asctime)s:%(levelname)s:%(name)s:%(message)s")
+    parse_menu()

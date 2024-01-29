@@ -1,5 +1,4 @@
 from datetime import datetime
-import os
 import logging
 
 import requests
@@ -15,18 +14,26 @@ EMPTY_RESPONSES = {
 }
 
 
-def fetch_html(url, encoding="utf-8"):
+def fetch(url, encoding=None, stream=False):
     for _ in range(3):
         try:
-            response = requests.get(url)
-            response.encoding = encoding
+            response = requests.get(url, stream=stream)
+            if encoding:
+                response.encoding = encoding
             if response.status_code == 200:
-                return BeautifulSoup(response.text, features="lxml")
+                return response
             logger.warning("Error during fetching url %s: HTTP %s, %s",
                            url, response.status_code, response.text)
         except requests.exceptions.RequestException:
             logger.warning("Error fetching url.")
     logger.error("URL not fetched.")
+    return None
+
+
+def fetch_html(url, encoding="utf-8"):
+    response = fetch(url, encoding=encoding)
+    if response:
+        return BeautifulSoup(response.text, features="lxml")
     return None
 
 
