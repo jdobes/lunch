@@ -11,10 +11,9 @@ def parse_menu():
     html = fetch_html(URL)
     result = {}
     if html:
-        result[today] = []
         for table in html.find_all("table", class_="menu_table"):
             for tr in table.find_all("tr"):
                 cells = [td.text.strip() for td in tr.find_all("td")]
-                result[today].append(' '.join(cells))
+                result.setdefault(today, []).append(' '.join(cells))
 
     return result

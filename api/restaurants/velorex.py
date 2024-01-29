@@ -14,10 +14,9 @@ def parse_menu():
     if html:
         menu = html.find('div', { 'class': 'menu today'})
         if menu:
-            result[today] = []
             for tr in menu.find_all('tr'):
                 line = [td.text.strip() for td in tr.find_all('td')]
-                result[today].append(' '.join(line))
+                result.setdefault(today, []).append(' '.join(line))
 
     return result
 
