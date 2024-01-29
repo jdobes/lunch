@@ -10,6 +10,10 @@ logger.setLevel(logging.INFO)
 
 MENICKA_URL = "https://www.menicka.cz/api/iframe/?id=%s"
 
+EMPTY_RESPONSES = {
+    "Pro tento den nebylo zadáno menu.",
+}
+
 
 def fetch_html(url, encoding="utf-8"):
     for _ in range(3):
@@ -36,9 +40,9 @@ def parse_menicka(html):
         h2 = content.find("h2")
         if h2:
             current_date = datetime.strptime(h2.text.split()[1], "%d.%m.%Y").date()
-            result[current_date] = []
             for tr in content.find_all("tr"):
                 for alergen in tr.find_all("em"):
                     alergen.extract()
-                result[current_date].append(tr.text)
+                if tr.text not in EMPTY_RESPONSES:
+                    result.setdefault(current_date, []).append(tr.text)
     return result
