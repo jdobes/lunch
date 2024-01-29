@@ -1,66 +1,83 @@
-# -*- coding: utf-8 -*-
 from datetime import date, timedelta
+import logging
+import os
 
+from playwright.sync_api import sync_playwright, expect
 from unidecode import unidecode
 
-from .utils import fetch_html
-
 NAME = "Sesamo"
-URL = "https://sesamobrno.cz/menu/"
+URL = "https://www.facebook.com/sesamobrno"
 
+PLAYWRIGHT_PROXY = os.getenv("PLAYWRIGHT_PROXY", "")
 
-def format_date_line(tr):
-    columns = [td.text.strip() for td in tr.find_all('td')]
-    return unidecode(columns[1].lower())
-
-
-def format_menu_line(tr):
-    columns = [td.text.strip() for td in tr.find_all('td')]
-    if not any(columns):
-        return ""
-    return f"{columns[0]} - {columns[1]} {columns[3]} Kč"
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 def parse_menu():
-    today = date.today()
-    last_monday = today - timedelta(days=today.weekday())
-    html = fetch_html(URL)
     result = {}
-    if html:
-        current_date = None
-        all_days_menu = []
-        buffered_lines = []
-        menu = html.find("article").find("table")
-        for tr in menu.find_all('tr'):
-            if "pondeli" in format_date_line(tr):
-                buffered_lines = all_days_menu.copy()
-                current_date = last_monday
-            elif "utery" in format_date_line(tr):
-                if current_date:
-                    result[current_date] = buffered_lines
-                buffered_lines = all_days_menu.copy()
-                current_date = last_monday + timedelta(days=1)
-            elif "streda" in format_date_line(tr):
-                if current_date:
-                    result[current_date] = buffered_lines
-                buffered_lines = all_days_menu.copy()
-                current_date = last_monday + timedelta(days=2)
-            elif "ctvrtek" in format_date_line(tr):
-                if current_date:
-                    result[current_date] = buffered_lines
-                buffered_lines = all_days_menu.copy()
-                current_date = last_monday + timedelta(days=3)
-            elif "patek" in format_date_line(tr):
-                if current_date:
-                    result[current_date] = buffered_lines
-                buffered_lines = all_days_menu.copy()
-                current_date = last_monday + timedelta(days=4)
-            else:
-                if not current_date:
-                    all_days_menu.append(format_menu_line(tr))
-                else:
-                    buffered_lines.append(format_menu_line(tr))
-        if current_date:
-            result[current_date] = buffered_lines
+    last_monday = date.today() - timedelta(days=date.today().weekday())
+    with sync_playwright() as playwright:
+        kwargs = {
+            "viewport": {"width": 1080, "height": 1920},
+            "locale": "cs-CZ"
+        }
+        if PLAYWRIGHT_PROXY:
+            kwargs["proxy"] = {"server": PLAYWRIGHT_PROXY}
+        browser = playwright.firefox.launch(headless=True)
+        context = browser.new_context(**kwargs)
+        page = context.new_page()
+        page.goto(URL)
+
+        cookie_button = page.get_by_role("button", name="Odmítnout")
+        expect(cookie_button).to_be_visible()
+        cookie_button.click()
+
+        login_close_button = page.get_by_role("button", name="Zavřít")
+        expect(login_close_button).to_be_visible()
+        login_close_button.click()
+
+        # Wait for initial posts to load
+        page.wait_for_load_state("networkidle")
+
+        posts = page.get_by_role("article").all()
+        logger.debug("Checking last %d posts.", len(posts))
+        for idx, post in enumerate(posts):
+            show_more_button = post.get_by_role("button", name="Zobrazit víc")
+            show_more_clicked = False
+            if show_more_button.is_visible():
+                show_more_clicked = True
+                show_more_button.click()
+            lines = post.locator("[style='text-align: start;']").all()
+            logger.debug("Post %d, show_more_clicked=%s, lines=%d", idx+1, show_more_clicked, len(lines))
+
+            lines = [line.text_content() for line in lines]
+
+            menu_found = False
+            for line in lines:
+                if "denni menu" in unidecode(line.lower()):
+                    menu_found = True
+                    break
+
+            if menu_found:
+                for days_offset in range(5):
+                    current_date = last_monday + timedelta(days=days_offset)
+                    # Copy the full text to all days because the format is really inconsistent every week
+                    result[current_date] = lines
+                logger.debug("Seems like post %d contains menu, skipping the rest.", idx+1)
+                break
+
+        #page.pause()
+        #page.screenshot(path="example.png")
+        browser.close()
+
+        if not result:
+            logger.debug("No menu found in posts.")
 
     return result
+
+
+if __name__ == "__main__":
+    # Debugging
+    logging.basicConfig(format="%(asctime)s:%(levelname)s:%(name)s:%(message)s")
+    parse_menu()
