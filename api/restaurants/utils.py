@@ -11,6 +11,8 @@ MENICKA_URL = "https://www.menicka.cz/api/iframe/?id=%s"
 
 EMPTY_RESPONSES = {
     "Pro tento den nebylo zadáno menu.",
+    "Restaurace má tento den zavřeno.",
+    "Denní menu dle nabídky v restauraci",
 }
 
 
