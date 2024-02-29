@@ -11,6 +11,8 @@ services:
       - "8001:8001"
   lunch-web:
     command: /entrypoint.sh web
+    environment:
+      API_HOST: lunch_api
     image: lunch:latest
     container_name: lunch_web
     ports:

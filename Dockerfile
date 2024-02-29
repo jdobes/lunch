@@ -13,6 +13,8 @@ RUN microdnf module enable nginx:1.22 && \
 
 ENV PLAYWRIGHT_PROXY=""
 ENV TZ="Europe/Prague"
+ENV API_HOST="localhost"
+
 # apscheduler fix
 RUN echo "Europe/Prague" > /etc/timezone
 
