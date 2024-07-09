@@ -40,7 +40,7 @@ def parse_menu():
         # Wait for initial posts to load
         page.wait_for_load_state("networkidle")
 
-        posts = page.get_by_role("article").all()
+        posts = page.locator("[data-ad-preview='message']").all()
         logger.debug("Checking last %d posts.", len(posts))
         for idx, post in enumerate(posts):
             show_more_button = post.get_by_role("button", name="Zobrazit víc")
