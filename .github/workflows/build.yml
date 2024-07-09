@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    concurrency:
+      group: build
+      cancel-in-progress: true
     env:
       REGISTRY: docker.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
