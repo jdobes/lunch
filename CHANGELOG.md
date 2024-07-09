@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.0.1 (2024-07-09)
+
+### Fix
+
+* fix(qwerty, sesamo): Facebook changed generated HTML ([`6f8abb9`](https://github.com/jdobes/lunch/commit/6f8abb90cb842f37108a752635e52bf26b0e0609))
+
 ## v1.0.0 (2024-07-09)
 
 ### Feature
