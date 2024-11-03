@@ -29,4 +29,4 @@ ADD web/build/*           /usr/share/nginx/html/
 ADD web/build/static/js/* /usr/share/nginx/html/static/js/
 ADD web/nginx.conf        /etc/nginx/nginx.conf
 
-ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,qwerty,alvin,moravia,portoriko,kanas_restaurant,kanas_jidelna,vitalite,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,spravnemisto,sesamo,jeanpauls,rubin
+ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,qwerty,alvin,moravia,portoriko,kanas_restaurant,kanas_jidelna,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,spravnemisto,sesamo,jeanpauls,rubin
