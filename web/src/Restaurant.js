@@ -38,8 +38,8 @@ class RestaurantComponent extends Component {
           aria-controls="panel-content"
           id="panel-header"
           >
-            <Typography variant="h6" sx={{ width: '85%', flexShrink: 0 }}>{this.props.detail[0]}</Typography>
-            <Chip icon={<PlaceTwoToneIcon />} variant="outlined" color="info" sx={{ width: '15%', flexShrink: 0 }} onClick={() => { window.open(`${mapsUrl}${this.props.detail[1]},${this.props.detail[2]}`); }} label={
+            <Typography variant="h6" sx={{ flexGrow: 1 }} >{this.props.detail[0]}</Typography>
+            <Chip icon={<PlaceTwoToneIcon />} variant="outlined" color="info" onClick={() => { window.open(`${mapsUrl}${this.props.detail[1]},${this.props.detail[2]}`); }} label={
               <Typography>
                  {formatDistance(this.state.distance)}
               </Typography>
