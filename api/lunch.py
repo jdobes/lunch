@@ -60,7 +60,8 @@ def main():
     for restaurant in enabled_restaurants:
         module = get_restaurant_module(restaurant)
         if module:
-            record = Restaurant(label=restaurant, name=module.NAME, url=module.URL)
+            record = Restaurant(label=restaurant, name=module.NAME, url=module.URL,
+                                latitude=module.GPS[0], longitude=module.GPS[1])
             record.save()
             restaurants[restaurant] = module
             logger.info("Loaded restaurant module: %s", restaurant)

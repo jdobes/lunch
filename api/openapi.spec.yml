@@ -29,10 +29,16 @@ paths:
                           type: string
                         url:
                           type: string
+                        latitude:
+                          type: number
+                        longitude:
+                          type: number
                       required:
                         - label
                         - name
                         - url
+                        - latitude
+                        - longitude
                 required:
                   - restaurants
 
@@ -81,3 +87,37 @@ paths:
                   - menus
         400:
           description: Invalid day format.
+
+  /api/origins:
+    get:
+      summary: Origins
+      description: Get list of origins to calculate distance from.
+      operationId: lunch.api.get_origins
+      responses:
+        200:
+          description: List of origins.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  origins:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        label:
+                          type: string
+                        name:
+                          type: string
+                        latitude:
+                          type: number
+                        longitude:
+                          type: number
+                      required:
+                        - label
+                        - name
+                        - latitude
+                        - longitude
+                required:
+                  - origins

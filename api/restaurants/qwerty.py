@@ -7,6 +7,7 @@ from unidecode import unidecode
 
 NAME = "Qwerty"
 URL = "https://www.facebook.com/QwertyRestaurant"
+GPS = (49.235655201154906, 16.573111921257983)
 
 PLAYWRIGHT_PROXY = os.getenv("PLAYWRIGHT_PROXY", "")
 

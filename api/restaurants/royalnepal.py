@@ -8,6 +8,7 @@ from .utils import fetch_html
 
 NAME = "Royal Nepal"
 URL = "https://www.royalnepal.cz/kralovo-pole/weekly-menu"
+GPS = (49.22052154321084, 16.58709101916278)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

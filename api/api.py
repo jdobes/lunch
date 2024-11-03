@@ -9,13 +9,16 @@ from .model import Restaurant, RestaurantMenu
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+OFFICE_GPS = (49.231635142558865, 16.576317775011656)
+
 
 def get_restaurants():
     response = {"restaurants": []}
 
     for restaurant in Restaurant.select():
         response["restaurants"].append({"label": restaurant.label, "name": restaurant.name,
-                                        "url": restaurant.url})
+                                        "url": restaurant.url, "latitude": restaurant.latitude,
+                                        "longitude": restaurant.longitude})
     return response
 
 
@@ -44,3 +47,10 @@ def get_menus(day=None, restaurants=None):
 
     return {"day": requested_date, "menus": [{"restaurant": restaurant, "menu": menus.get(restaurant)}
                                              for restaurant in requested_restaurants]}
+
+
+def get_origins():
+    return {"origins": [{"label": "office",
+                         "name": "Office",
+                         "latitude": OFFICE_GPS[0],
+                         "longitude": OFFICE_GPS[1]}]}

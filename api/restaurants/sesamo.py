@@ -7,6 +7,7 @@ from unidecode import unidecode
 
 NAME = "Sesamo"
 URL = "https://www.facebook.com/sesamobrno"
+GPS = (49.22562107171892, 16.581867425634258)
 
 PLAYWRIGHT_PROXY = os.getenv("PLAYWRIGHT_PROXY", "")
 

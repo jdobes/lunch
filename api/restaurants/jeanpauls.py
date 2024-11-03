@@ -10,6 +10,7 @@ from .utils import fetch
 
 NAME = "Jean Paul's"
 URL = "https://www.jpbistro.cz/assets/menu/obed-menu/obed-technopark.pdf"
+GPS = (49.230641595778884, 16.576966498445827)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

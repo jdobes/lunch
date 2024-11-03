@@ -1,5 +1,5 @@
 import os
-from peewee import SqliteDatabase, Model, TextField, ForeignKeyField, DateField
+from peewee import SqliteDatabase, Model, TextField, ForeignKeyField, DateField, DoubleField
 
 DB_FILE = "/tmp/lunch.db"
 if os.path.isfile(DB_FILE):
@@ -18,6 +18,8 @@ class Restaurant(BaseModel):
     label = TextField(null=False, unique=True)
     name = TextField(null=False)
     url = TextField(null=False)
+    latitude = DoubleField(null=False)
+    longitude = DoubleField(null=False)
 
 
 class RestaurantMenu(BaseModel):

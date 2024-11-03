@@ -6,6 +6,7 @@ from .utils import fetch_html
 
 NAME = "TikTok Nepal"
 URL = "https://nepalbrno.cz/weekly-menu/"
+GPS = (49.22448917714069, 16.59026497848504)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

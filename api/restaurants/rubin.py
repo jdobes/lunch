@@ -4,6 +4,7 @@ from .utils import fetch_html
 
 NAME = "Rubín"
 URL = "http://restauracerubin.cz/"
+GPS = (49.218438061027825, 16.576717845038438)
 
 
 def parse_menu():

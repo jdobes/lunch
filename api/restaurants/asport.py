@@ -4,6 +4,7 @@ from .utils import fetch_menicka, parse_menicka
 NAME = "A-Sport Hotel / Restaurace Campo"
 URL = "https://www.menicka.cz/2680-restaurace-campo-a-sport-hotel.html"
 RESTAURANT_ID = "2680"
+GPS = (49.226724688140656, 16.584220478889034)
 
 
 def parse_menu():
