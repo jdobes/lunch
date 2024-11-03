@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v1.2.0 (2024-11-03)
+
+### Bug Fixes
+
+* fix: google maps say vitalite is closed ([`f267b89`](https://github.com/jdobes/lunch/commit/f267b896134d1957b345bf347b80347b1ee277f4))
+
+### Features
+
+* feat(web): add distance chips ([`9743412`](https://github.com/jdobes/lunch/commit/9743412280a74dc4523c8391b295a06b20a5f6e6))
+
+* feat(api): return location of restaurants and the office ([`0cc3d5c`](https://github.com/jdobes/lunch/commit/0cc3d5c3e1bbedf5772cfac80e65b31320c21bc8))
+
+
 ## v1.1.0 (2024-11-03)
 
 ### Features
