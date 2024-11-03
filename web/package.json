@@ -9,7 +9,8 @@
     "@mui/icons-material": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-scripts": "latest"
+    "react-scripts": "latest",
+    "geolib": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
