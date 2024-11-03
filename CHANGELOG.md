@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v1.2.1 (2024-11-03)
+
+### Bug Fixes
+
+* fix(web): scaling on mobile ([`979b69b`](https://github.com/jdobes/lunch/commit/979b69b4135517b62c668d63f55f45424dbcd0be))
+
+
 ## v1.2.0 (2024-11-03)
 
 ### Bug Fixes
