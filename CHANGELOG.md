@@ -1,22 +1,33 @@
 # CHANGELOG
 
+
+## v1.1.0 (2024-11-03)
+
+### Features
+
+* feat: add alvin ([`cd003cf`](https://github.com/jdobes/lunch/commit/cd003cf5294c5c2490b64e11fdd1c3c5fd4ec578))
+
+* feat(qwerty): include weekly menu ([`0d20a29`](https://github.com/jdobes/lunch/commit/0d20a299b93004b9a45b57abb8712d2900d60928))
+
+
 ## v1.0.1 (2024-07-09)
 
-### Fix
+### Bug Fixes
 
 * fix(qwerty, sesamo): Facebook changed generated HTML ([`6f8abb9`](https://github.com/jdobes/lunch/commit/6f8abb90cb842f37108a752635e52bf26b0e0609))
 
+
 ## v1.0.0 (2024-07-09)
 
-### Feature
+### Bug Fixes
+
+* fix(restaurants): Rubin from their site ([`de46d69`](https://github.com/jdobes/lunch/commit/de46d698b7721b15765e0e6918509437374b5de5))
+
+### Features
 
 * feat: Enable python-semantic-release ([`6d1cf89`](https://github.com/jdobes/lunch/commit/6d1cf8997f3be3503585af6e7664d0fb7e209499))
 
 * feat: add Rubin ([`24295b3`](https://github.com/jdobes/lunch/commit/24295b36dea6391a8bdf9e53c569aad4167cb663))
-
-### Fix
-
-* fix(restaurants): Rubin from their site ([`de46d69`](https://github.com/jdobes/lunch/commit/de46d698b7721b15765e0e6918509437374b5de5))
 
 ### Unknown
 
@@ -36,7 +47,7 @@ closes #52 ([`d8ee915`](https://github.com/jdobes/lunch/commit/d8ee91576bbe82e95
 
 unfortunately the format is different every week ([`689cd75`](https://github.com/jdobes/lunch/commit/689cd752495304341267ea758f23fb3f53dd2ae5))
 
-* don&#39;t clear the menu when it&#39;s removed from the page on the same day
+* don't clear the menu when it's removed from the page on the same day
 
 remove it the next day ([`1f2208a`](https://github.com/jdobes/lunch/commit/1f2208a3e451318ea744eef5ed5f37b093158486))
 
@@ -44,9 +55,9 @@ remove it the next day ([`1f2208a`](https://github.com/jdobes/lunch/commit/1f220
 
 * switch to firefox for playwright
 
-chromium doesn&#39;t seem to run in k3s on arm64, this is easiest workaround
+chromium doesn't seem to run in k3s on arm64, this is easiest workaround
 
-can&#39;t use distro firefox because playwright works only with custom firefox build ([`da0c35e`](https://github.com/jdobes/lunch/commit/da0c35e52bda71e91824cfaeef7a6e5a82c1aa48))
+can't use distro firefox because playwright works only with custom firefox build ([`da0c35e`](https://github.com/jdobes/lunch/commit/da0c35e52bda71e91824cfaeef7a6e5a82c1aa48))
 
 * add qwerty ([`4166d65`](https://github.com/jdobes/lunch/commit/4166d65863e6c247a5005922f4c6e4d016ae3a4b))
 
@@ -154,7 +165,7 @@ Bumps [eslint-utils](https://github.com/mysticatea/eslint-utils) from 1.4.0 to 1
 - [Release notes](https://github.com/mysticatea/eslint-utils/releases)
 - [Commits](https://github.com/mysticatea/eslint-utils/compare/v1.4.0...v1.4.3)
 
-Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`8f150eb`](https://github.com/jdobes/lunch/commit/8f150eb18f1ef1c362168f5960b8845972b624ec))
+Signed-off-by: dependabot[bot] <support@github.com> ([`8f150eb`](https://github.com/jdobes/lunch/commit/8f150eb18f1ef1c362168f5960b8845972b624ec))
 
 * fix liquid bread ([`6741846`](https://github.com/jdobes/lunch/commit/6741846ac9c5f9569bfe79060934d692fd2833a1))
 
@@ -176,9 +187,9 @@ Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`8f150eb`](https://g
 
 * parse zomato restaurants ([`f442bb6`](https://github.com/jdobes/lunch/commit/f442bb6a77129c46cc051773ba64304b32b4fa76))
 
-* replace newlines with &lt;br/&gt; ([`2e3f672`](https://github.com/jdobes/lunch/commit/2e3f67298ac3e269b2cb3b18f2fc7e36fe37bfe5))
+* replace newlines with <br/> ([`2e3f672`](https://github.com/jdobes/lunch/commit/2e3f67298ac3e269b2cb3b18f2fc7e36fe37bfe5))
 
-* set utf-8 encoding, it&#39;s not set by default ([`8e8d46f`](https://github.com/jdobes/lunch/commit/8e8d46fbacd04834c9b57d914dbdfbd11834ce45))
+* set utf-8 encoding, it's not set by default ([`8e8d46f`](https://github.com/jdobes/lunch/commit/8e8d46fbacd04834c9b57d914dbdfbd11834ce45))
 
 * define API url if running UI using npm start ([`4f81fd8`](https://github.com/jdobes/lunch/commit/4f81fd8d95a8a83f4997221b0cf18d0d610722fa))
 
