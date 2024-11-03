@@ -28,10 +28,10 @@ def get_menus(day=None, restaurants=None):
     else:
         now = datetime.now(pytz.timezone(os.getenv("TZ")))
         requested_date = date(now.year, now.month, now.day)
-    
+
     if restaurants:
         requested_restaurants = restaurants.split(",")
-    else:    
+    else:
         requested_restaurants = [restaurant.label for restaurant in Restaurant.select()]
 
     query = RestaurantMenu.select(Restaurant.label, RestaurantMenu.menu).join(Restaurant) \

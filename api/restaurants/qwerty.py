@@ -52,23 +52,37 @@ def parse_menu():
             logger.debug("Post %d, show_more_clicked=%s, lines=%d", idx+1, show_more_clicked, len(lines))
 
             current_date = None
+            weekly_section = False
+            weekly_offer = []
             # Strip first line with dates
-            for line in lines[1:]:
+            for line in lines:
                 txt = line.text_content()
-                if "pondeli" == unidecode(txt.lower()):
+                day_identifier = unidecode(txt.lower())
+                if "pondeli" == day_identifier:
                     current_date = last_monday
-                elif "utery" == unidecode(txt.lower()):
+                elif "utery" == day_identifier:
                     current_date = last_monday + timedelta(days=1)
-                elif "streda" == unidecode(txt.lower()):
+                elif "streda" == day_identifier:
                     current_date = last_monday + timedelta(days=2)
-                elif "ctvrtek" == unidecode(txt.lower()):
+                elif "ctvrtek" == day_identifier:
                     current_date = last_monday + timedelta(days=3)
-                elif "patek" == unidecode(txt.lower()):
+                elif "patek" == day_identifier:
                     current_date = last_monday + timedelta(days=4)
+                elif ("tydenni" in day_identifier or "tydne" in day_identifier) and not "polevka" in day_identifier:
+                    current_date = None
+                    weekly_section = True
                 elif current_date and txt:
                     result.setdefault(current_date, []).append(txt)
+                elif weekly_section and txt:
+                    weekly_offer.append(txt)
 
-            if current_date:
+            if weekly_offer:
+                for _, offer in result.items():
+                    offer.append("")
+                    offer.append("All week:")
+                    offer.extend(weekly_offer)
+
+            if result:
                 logger.debug("Seems like post %d contains menu, skipping the rest.", idx+1)
                 break
 
