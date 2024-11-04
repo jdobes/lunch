@@ -5,13 +5,21 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Box } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ContrastIcon from '@mui/icons-material/Contrast';
+import CircleIcon from '@mui/icons-material/Circle';
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import Link from '@mui/material/Link';
 
 import { isDev } from './Constants'
 import RestaurantListComponent from './RestaurantList';
 
-const theme = createTheme();
+const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
+});
 
 export function getCurrentDate(){
   let newDate = new Date()
@@ -25,20 +33,43 @@ export function getCurrentDate(){
   return `${year}-${month}-${date} ${hour}:${minute}:${second}`
 };
 
-export default function Lunch() {
-  //const classes = useStyles();
-  // className={classes.icon}
-  // className={classes.content}
-  // className={classes.footer}
+function Lunch() {
+  const { mode, setMode } = useColorScheme();
+  if (!mode) {
+    return null;
+  }
   return (
     <React.Fragment>
       <CssBaseline />
       <AppBar position="relative" color="primary">
         <Toolbar>
           <RestaurantIcon sx={{ marginRight: theme.spacing(2) }} />
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             Lunch Picker
           </Typography>
+          <IconButton aria-label="theme" color="inherit" onClick={() => {
+            mode === "system" ? (
+              setMode("light")
+            ) : (
+              mode === "light" ? (
+                setMode("dark")
+              ) : (
+                setMode("system")
+              )
+            )
+          }}>
+            {
+              mode === "system" ? (
+                <ContrastIcon />
+              ) : (
+                mode === "dark" ? (
+                  <CircleOutlinedIcon />
+                ) : (
+                  <CircleIcon />
+                )
+              )
+            }
+          </IconButton>
         </Toolbar>
       </AppBar>
       <main>
@@ -71,5 +102,13 @@ export default function Lunch() {
       </Box>
       {/* End footer */}
     </React.Fragment>
+  );
+}
+
+export default function ThemedApp() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Lunch />
+    </ThemeProvider>
   );
 }

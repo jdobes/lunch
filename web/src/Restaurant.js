@@ -47,8 +47,8 @@ class RestaurantComponent extends Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              {this.props.menu && this.props.menu.split("\n").map((item) => (
-                <span>
+              {this.props.menu && this.props.menu.split("\n").map((item, idx) => (
+                <span key={idx}>
                   {item}
                   <br/>
                 </span>
