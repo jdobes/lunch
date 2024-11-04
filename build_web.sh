@@ -32,7 +32,7 @@ rm -rf ./web/build/
 cat <<EOF > $tmpdir$dockerfile
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 
-RUN microdnf module enable nodejs:18 && \
+RUN microdnf module enable nodejs:20 && \
     microdnf install npm python2 make gcc-c++
 
 ADD web/*.json  /web-build/
