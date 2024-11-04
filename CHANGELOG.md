@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v1.3.0 (2024-11-04)
+
+### Chores
+
+* chore: bump npm to match dev env ([`1337919`](https://github.com/jdobes/lunch/commit/1337919ef5787dad702d613b1e8fa6fd365b3b85))
+
+* chore(web): update libs ([`d3f6e8d`](https://github.com/jdobes/lunch/commit/d3f6e8d5eb1ec4814aea34c05957d48e100fd148))
+
+### Features
+
+* feat(web): implement dark mode ([`951ad93`](https://github.com/jdobes/lunch/commit/951ad93fe5f8f49f68f5923143435a9143acf62d))
+
+
 ## v1.2.1 (2024-11-03)
 
 ### Bug Fixes
