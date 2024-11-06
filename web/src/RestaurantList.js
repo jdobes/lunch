@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Container from '@mui/material/Container';
 
+import { getDistance } from 'geolib';
+
 import RestaurantComponent from './Restaurant';
 import LoadingCircleComponent from './LoadingCircle';
-
 import { config } from './Constants'
 
 class RestaurantListComponent extends Component {
@@ -12,10 +13,8 @@ class RestaurantListComponent extends Component {
 
     this.state = {
       isLoading: false,
-      availableRestaurants: [],
       restaurantDetailMap: {},
-      originDetailMap: {},
-      todaysMenus: []
+      todaysMenusMap: {}
     };
   }
 
@@ -27,35 +26,48 @@ class RestaurantListComponent extends Component {
       })
       .then(([responseOrigins, responseRestaurants, responseMenus]) => {
         // Setup origin label -> detail map
-        const newOriginDetailMap = {}
+        const originDetailMap = {}
         for (const originObject of responseOrigins.origins.values()) {
-          newOriginDetailMap[originObject.label] = [originObject.name, originObject.latitude, originObject.longitude]
+          originDetailMap[originObject.label] = [originObject.name, originObject.latitude, originObject.longitude]
         }
         // Setup restaurant label -> detail map
         const newRestaurantDetailMap = {}
         for (const restaurantObject of responseRestaurants.restaurants.values()) {
-          newRestaurantDetailMap[restaurantObject.label] = [restaurantObject.name, restaurantObject.latitude, restaurantObject.longitude]
+          const distance = getDistance(
+            { latitude: originDetailMap["office"][1], longitude: originDetailMap["office"][2] },
+            { latitude: restaurantObject.latitude, longitude: restaurantObject.longitude }
+          )
+          newRestaurantDetailMap[restaurantObject.label] = [restaurantObject.name, restaurantObject.latitude, restaurantObject.longitude, distance]
         }
-        this.setState({ availableRestaurants: responseRestaurants.restaurants,
-                        originDetailMap: newOriginDetailMap,
-                        restaurantDetailMap: newRestaurantDetailMap,
-                        todaysMenus: responseMenus.menus,
+        // Setup restaurant label -> menus map
+        const newtodaysMenusMap = {}
+        for (const menuObject of responseMenus.menus) {
+          newtodaysMenusMap[menuObject.restaurant] = menuObject.menu
+        }
+        this.setState({ restaurantDetailMap: newRestaurantDetailMap,
+                        todaysMenusMap: newtodaysMenusMap,
                         isLoading: false })
       });
   }
 
   render() {
-    const { isLoading, restaurantDetailMap, originDetailMap, todaysMenus } = this.state;
-    if (isLoading || todaysMenus.length === 0) {
+    const { isLoading, restaurantDetailMap, todaysMenusMap } = this.state;
+    if (isLoading || todaysMenusMap.length === 0) {
       return (
         <Container maxWidth="md">
           <LoadingCircleComponent />
         </Container>
       );
     }
+    // Sort restaurants
+    const sortedRestaurants = Object.keys(restaurantDetailMap)
+    sortedRestaurants.sort((a, b) => {
+      return restaurantDetailMap[a][3] - restaurantDetailMap[b][3]
+    })
+
     const restaurantPanels = []
-    for (const value of todaysMenus.values()) {
-      restaurantPanels.push(<RestaurantComponent origin={originDetailMap["office"]} key={value.restaurant} detail={restaurantDetailMap[value.restaurant]} menu={value.menu}/>)
+    for (const restaurant of sortedRestaurants) {
+      restaurantPanels.push(<RestaurantComponent key={restaurant} detail={restaurantDetailMap[restaurant]} menu={todaysMenusMap[restaurant]}/>)
     }
     return (
       <Container maxWidth="md">

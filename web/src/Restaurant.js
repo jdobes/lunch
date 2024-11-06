@@ -7,7 +7,6 @@ import Chip from '@mui/material/Chip';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PlaceTwoToneIcon from '@mui/icons-material/PlaceTwoTone';
 import Typography from '@mui/material/Typography';
-import { getDistance } from 'geolib';
 
 const mapsUrl = "https://mapy.cz/zakladni?q="
 
@@ -19,17 +18,6 @@ export function formatDistance(distance){
 };
 
 class RestaurantComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      distance: getDistance(
-        { latitude: this.props.origin[1], longitude: this.props.origin[2] },
-        { latitude: this.props.detail[1], longitude: this.props.detail[2] }
-      )
-    };
-  }
-
   render() {
       return (
         <Accordion disabled={!this.props.menu}>
@@ -41,7 +29,7 @@ class RestaurantComponent extends Component {
             <Typography variant="h6" sx={{ flexGrow: 1 }} >{this.props.detail[0]}</Typography>
             <Chip icon={<PlaceTwoToneIcon />} variant="outlined" color="info" onClick={() => { window.open(`${mapsUrl}${this.props.detail[1]},${this.props.detail[2]}`); }} label={
               <Typography>
-                 {formatDistance(this.state.distance)}
+                 {formatDistance(this.props.detail[3])}
               </Typography>
             }/>
           </AccordionSummary>
