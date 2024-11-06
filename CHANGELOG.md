@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v1.4.0 (2024-11-06)
+
+### Features
+
+* feat(web): sort by distance ([`c6c30d7`](https://github.com/jdobes/lunch/commit/c6c30d71cb2fa75d8d3b3cdce7cf2c9e4aafc4e0))
+
+
 ## v1.3.0 (2024-11-04)
 
 ### Chores
