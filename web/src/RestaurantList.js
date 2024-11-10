@@ -12,14 +12,14 @@ class RestaurantListComponent extends Component {
     super(props);
 
     this.state = {
-      isLoading: false,
+      isLoading: true,
       restaurantDetailMap: {},
-      todaysMenusMap: {}
+      todaysMenusMap: {},
+      defaultUserLocation: {}
     };
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true });
     Promise.all([fetch(config.API_URL + '/api/origins'), fetch(config.API_URL + '/api/restaurants'), fetch(config.API_URL + '/api/menus')])
       .then(([responseOrigins, responseRestaurants, responseMenus]) => {
         return Promise.all([responseOrigins.json(), responseRestaurants.json(), responseMenus.json()])
@@ -28,30 +28,27 @@ class RestaurantListComponent extends Component {
         // Setup origin label -> detail map
         const originDetailMap = {}
         for (const originObject of responseOrigins.origins.values()) {
-          originDetailMap[originObject.label] = [originObject.name, originObject.latitude, originObject.longitude]
+          originDetailMap[originObject.label] = { name: originObject.name, latitude: originObject.latitude, longitude: originObject.longitude }
         }
         // Setup restaurant label -> detail map
-        const newRestaurantDetailMap = {}
+        const restaurantDetailMap = {}
         for (const restaurantObject of responseRestaurants.restaurants.values()) {
-          const distance = getDistance(
-            { latitude: originDetailMap["office"][1], longitude: originDetailMap["office"][2] },
-            { latitude: restaurantObject.latitude, longitude: restaurantObject.longitude }
-          )
-          newRestaurantDetailMap[restaurantObject.label] = [restaurantObject.name, restaurantObject.latitude, restaurantObject.longitude, distance]
+          restaurantDetailMap[restaurantObject.label] = { name: restaurantObject.name, latitude: restaurantObject.latitude, longitude: restaurantObject.longitude }
         }
         // Setup restaurant label -> menus map
-        const newtodaysMenusMap = {}
+        const todaysMenusMap = {}
         for (const menuObject of responseMenus.menus) {
-          newtodaysMenusMap[menuObject.restaurant] = menuObject.menu
+          todaysMenusMap[menuObject.restaurant] = menuObject.menu
         }
-        this.setState({ restaurantDetailMap: newRestaurantDetailMap,
-                        todaysMenusMap: newtodaysMenusMap,
+        this.setState({ restaurantDetailMap: restaurantDetailMap,
+                        todaysMenusMap: todaysMenusMap,
+                        defaultUserLocation: { latitude: originDetailMap["office"].latitude, longitude: originDetailMap["office"].longitude },
                         isLoading: false })
       });
   }
 
   render() {
-    const { isLoading, restaurantDetailMap, todaysMenusMap } = this.state;
+    const { isLoading, restaurantDetailMap, todaysMenusMap, defaultUserLocation } = this.state;
     if (isLoading || todaysMenusMap.length === 0) {
       return (
         <Container maxWidth="md">
@@ -59,15 +56,26 @@ class RestaurantListComponent extends Component {
         </Container>
       );
     }
+    let originLocation = defaultUserLocation
+    if (this.props.userLocation !== null) {  // Real position available
+      originLocation = this.props.userLocation
+    }
+    // Calculate current distances
+    const restaurantDistanceMap = {}
+    for (const restaurant in restaurantDetailMap) {
+      restaurantDistanceMap[restaurant] = getDistance(
+        { latitude: originLocation.latitude, longitude: originLocation.longitude},
+        { latitude: restaurantDetailMap[restaurant].latitude, longitude: restaurantDetailMap[restaurant].longitude})
+    }
     // Sort restaurants
-    const sortedRestaurants = Object.keys(restaurantDetailMap)
+    const sortedRestaurants = Object.keys(restaurantDistanceMap)
     sortedRestaurants.sort((a, b) => {
-      return restaurantDetailMap[a][3] - restaurantDetailMap[b][3]
+      return restaurantDistanceMap[a] - restaurantDistanceMap[b]
     })
 
     const restaurantPanels = []
     for (const restaurant of sortedRestaurants) {
-      restaurantPanels.push(<RestaurantComponent key={restaurant} detail={restaurantDetailMap[restaurant]} menu={todaysMenusMap[restaurant]}/>)
+      restaurantPanels.push(<RestaurantComponent key={restaurant} detail={restaurantDetailMap[restaurant]} distance={restaurantDistanceMap[restaurant]} menu={todaysMenusMap[restaurant]}/>)
     }
     return (
       <Container maxWidth="md">

@@ -26,10 +26,10 @@ class RestaurantComponent extends Component {
           aria-controls="panel-content"
           id="panel-header"
           >
-            <Typography variant="h6" sx={{ flexGrow: 1 }} >{this.props.detail[0]}</Typography>
-            <Chip icon={<PlaceTwoToneIcon />} variant="outlined" color="info" onClick={() => { window.open(`${mapsUrl}${this.props.detail[1]},${this.props.detail[2]}`); }} label={
+            <Typography variant="h6" sx={{ flexGrow: 1 }} >{this.props.detail.name}</Typography>
+            <Chip icon={<PlaceTwoToneIcon />} variant="outlined" color="info" onClick={() => { window.open(`${mapsUrl}${this.props.detail.latitude},${this.props.detail.longitude}`); }} label={
               <Typography>
-                 {formatDistance(this.props.detail[3])}
+                 {formatDistance(this.props.distance)}
               </Typography>
             }/>
           </AccordionSummary>

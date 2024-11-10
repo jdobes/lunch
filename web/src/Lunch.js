@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,6 +10,8 @@ import IconButton from '@mui/material/IconButton';
 import ContrastIcon from '@mui/icons-material/Contrast';
 import CircleIcon from '@mui/icons-material/Circle';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import NearMeIcon from '@mui/icons-material/NearMe';
+import NearMeOutlinedIcon from '@mui/icons-material/NearMeOutlined';
 import Link from '@mui/material/Link';
 
 import { isDev } from './Constants'
@@ -21,7 +23,7 @@ const theme = createTheme({
   },
 });
 
-export function getCurrentDate(){
+function getCurrentDate(){
   let newDate = new Date()
   let year = newDate.getFullYear();
   let month = ("0" + (newDate.getMonth() + 1)).slice(-2);
@@ -35,6 +37,7 @@ export function getCurrentDate(){
 
 function Lunch() {
   const { mode, setMode } = useColorScheme();
+  const [userLocation, setUserLocation] = useState(null);
   if (!mode) {
     return null;
   }
@@ -47,6 +50,33 @@ function Lunch() {
           <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             Lunch Picker
           </Typography>
+          <IconButton aria-label="theme" color="inherit" onClick={() => {
+            if (userLocation === null) {
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                  (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setUserLocation({ latitude, longitude });
+                  },
+                  (error) => {
+                    console.error("Error getting user location: ", error);
+                  }
+                );
+              } else {
+                console.error("Geolocation is not supported by this browser.")
+              }
+            } else {
+              setUserLocation(null)
+            }
+          }}>
+            {
+              userLocation === null ? (
+                <NearMeOutlinedIcon />
+              ) : (
+                <NearMeIcon />
+              )
+            }
+          </IconButton>
           <IconButton aria-label="theme" color="inherit" onClick={() => {
             mode === "system" ? (
               setMode("light")
@@ -74,7 +104,7 @@ function Lunch() {
       </AppBar>
       <main>
         <Box sx={{ padding: theme.spacing(4, 0) }}>
-          <RestaurantListComponent />
+          <RestaurantListComponent userLocation={userLocation}/>
         </Box>
       </main>
       {/* Footer */}
