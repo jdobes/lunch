@@ -7,3 +7,4 @@ lxml
 playwright
 unidecode
 tzdata
+pytz
