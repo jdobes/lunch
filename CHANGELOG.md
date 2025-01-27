@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.5.2 (2025-01-27)
+
+### Bug Fixes
+
+- Parse Qwerty restaurant from their website
+  ([`e8e0a11`](https://github.com/jdobes/lunch/commit/e8e0a11270a7b82dccf6939a7c8e54664c6ba658))
+
+
 ## v1.5.1 (2025-01-07)
 
 ### Bug Fixes
