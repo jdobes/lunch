@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.5.3 (2025-02-04)
+
+### Bug Fixes
+
+- Switch rubin to menicka
+  ([`b696124`](https://github.com/jdobes/lunch/commit/b6961243ecf2931ac0c20cb9728b5f93deced745))
+
+
 ## v1.5.2 (2025-01-27)
 
 ### Bug Fixes
