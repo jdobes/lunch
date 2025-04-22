@@ -37,15 +37,16 @@ def get_menus(day=None, restaurants=None):
     else:
         requested_restaurants = [restaurant.label for restaurant in Restaurant.select()]
 
-    query = RestaurantMenu.select(Restaurant.label, RestaurantMenu.menu).join(Restaurant) \
+    query = RestaurantMenu.select(Restaurant.label, RestaurantMenu.menu, RestaurantMenu.day, Restaurant.url).join(Restaurant) \
         .where(RestaurantMenu.day == requested_date) \
         .where(Restaurant.label << requested_restaurants) \
         .dicts()
-    menus = {}
+    menus, menu_metadata = {}, {}
     for row in query:
         menus[row["label"]] = row["menu"]
+        menu_metadata[row["label"]] = {"day": row["day"].strftime("%d.%m.%Y"), "url": row["url"]}
 
-    return {"day": requested_date, "menus": [{"restaurant": restaurant, "menu": menus.get(restaurant)}
+    return {"day": requested_date, "menus": [{"restaurant": restaurant, "menu": menus.get(restaurant), "menu_metadata": menu_metadata.get(restaurant)}
                                              for restaurant in requested_restaurants]}
 
 
