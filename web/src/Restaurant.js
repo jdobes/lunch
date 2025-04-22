@@ -4,6 +4,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Chip from '@mui/material/Chip';
+import Link from '@mui/material/Link'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PlaceTwoToneIcon from '@mui/icons-material/PlaceTwoTone';
 import Typography from '@mui/material/Typography';
@@ -34,7 +35,15 @@ class RestaurantComponent extends Component {
             }/>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
+            <Typography>              
+              <span>
+                Aktualizováno: {this.props.metadata.day}{" - "}
+              </span>
+              <Link target="_blank" rel="noopener noreferrer" href={this.props.metadata.url} color="inherit" aria-label="Menu link">
+                Menu link
+              </Link>
+              <br/>
+              <br/>
               {this.props.menu && this.props.menu.split("\n").map((item, idx) => (
                 <span key={idx}>
                   {item}
