@@ -36,19 +36,27 @@ class RestaurantListComponent extends Component {
           restaurantDetailMap[restaurantObject.label] = { name: restaurantObject.name, latitude: restaurantObject.latitude, longitude: restaurantObject.longitude }
         }
         // Setup restaurant label -> menus map
+        // Setup restaurant metadata label -> menus metadata (day, url)
         const todaysMenusMap = {}
+        const todaysMenusMetadata = {}
         for (const menuObject of responseMenus.menus) {
           todaysMenusMap[menuObject.restaurant] = menuObject.menu
+          todaysMenusMetadata[menuObject.restaurant] = {
+            // using ?. so that when sync fails, app won't crash
+            "day": menuObject?.menu_metadata?.day,
+            "url": menuObject?.menu_metadata?.url,
+          }
         }
         this.setState({ restaurantDetailMap: restaurantDetailMap,
                         todaysMenusMap: todaysMenusMap,
+                        todaysMenusMetadata: todaysMenusMetadata,
                         defaultUserLocation: { latitude: originDetailMap["office"].latitude, longitude: originDetailMap["office"].longitude },
                         isLoading: false })
       });
   }
 
   render() {
-    const { isLoading, restaurantDetailMap, todaysMenusMap, defaultUserLocation } = this.state;
+    const { isLoading, restaurantDetailMap, todaysMenusMap, defaultUserLocation, todaysMenusMetadata } = this.state;
     if (isLoading || todaysMenusMap.length === 0) {
       return (
         <Container maxWidth="md">
@@ -75,7 +83,7 @@ class RestaurantListComponent extends Component {
 
     const restaurantPanels = []
     for (const restaurant of sortedRestaurants) {
-      restaurantPanels.push(<RestaurantComponent key={restaurant} detail={restaurantDetailMap[restaurant]} distance={restaurantDistanceMap[restaurant]} menu={todaysMenusMap[restaurant]}/>)
+      restaurantPanels.push(<RestaurantComponent key={restaurant} detail={restaurantDetailMap[restaurant]} distance={restaurantDistanceMap[restaurant]} menu={todaysMenusMap[restaurant]} metadata={todaysMenusMetadata[restaurant]}/>)
     }
     return (
       <Container maxWidth="md">
