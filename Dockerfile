@@ -29,4 +29,6 @@ ADD web/build/*           /usr/share/nginx/html/
 ADD web/build/static/js/* /usr/share/nginx/html/static/js/
 ADD web/nginx.conf        /etc/nginx/nginx.conf
 
+RUN chown -R nginx:nginx /usr/share/nginx/html
+
 ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,qwerty,alvin,moravia,portoriko,kanas_restaurant,kanas_jidelna,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,spravnemisto,sesamo,jeanpauls,rubin,poupe,charlies_square,u_3_certu_starobrnenska,padowetz,statl,tusto,sportpub
