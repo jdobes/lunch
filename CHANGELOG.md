@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.5.4 (2025-05-06)
+
+### Bug Fixes
+
+- Non-root user in container permissions
+  ([`69a928a`](https://github.com/jdobes/lunch/commit/69a928aecdac51312d85bc2f3cfd554434d91188))
+
+
 ## v1.5.3 (2025-02-04)
 
 ### Bug Fixes
