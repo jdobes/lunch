@@ -1,6 +1,25 @@
 # CHANGELOG
 
 
+## v1.6.0 (2025-05-06)
+
+### Features
+
+- **api**: Send day and url when requesting menus
+  ([`5d36fcf`](https://github.com/jdobes/lunch/commit/5d36fcf7ae82c823eaf9e5432c67eb73da847e51))
+
+This change is later used on the frontend, where we display metadata about menu
+
+Signed-off-by: Filip Mudry <fmudry@redhat.com>
+
+- **web**: Display metadata (date and url) of a menu details
+  ([`4366ea5`](https://github.com/jdobes/lunch/commit/4366ea58bda123735bb68c3d8f0d245924d5a4c4))
+
+This should offer an easy way to verify that a menu is valid
+
+Signed-off-by: Filip Mudry <fmudry@redhat.com>
+
+
 ## v1.5.4 (2025-05-06)
 
 ### Bug Fixes
