@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import os
 import importlib
 import logging
@@ -13,6 +13,10 @@ from .model import init_schema, Restaurant, RestaurantMenu
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+def get_first_day_of_week():
+    now = datetime.now(pytz.timezone(os.getenv("TZ")))
+    first_day = now - timedelta(days=now.weekday())
+    return date(first_day.year, first_day.month, first_day.day)
 
 def sync(restaurants):
     logger.info("Syncing menus.")
@@ -32,9 +36,8 @@ def sync(restaurants):
         logger.info("Synced: %s" % restaurant)
     logger.info("Menus synced.")
     logger.info("Deleting old menus.")
-    now = datetime.now(pytz.timezone(os.getenv("TZ")))
-    today = date(now.year, now.month, now.day)
-    query = RestaurantMenu.delete().where(RestaurantMenu.day < today)
+    first_day_of_week = get_first_day_of_week()
+    query = RestaurantMenu.delete().where(RestaurantMenu.day < first_day_of_week)
     deleted = query.execute()
     logger.info("%s old menu(s) deleted.", deleted)
 
