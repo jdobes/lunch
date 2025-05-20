@@ -13,6 +13,8 @@ import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import NearMeOutlinedIcon from '@mui/icons-material/NearMeOutlined';
 import Link from '@mui/material/Link';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 import { isDev } from './Constants'
 import RestaurantListComponent from './RestaurantList';
@@ -33,10 +35,24 @@ function getCurrentDate(){
   let second = ("0" + newDate.getSeconds()).slice(-2);
 
   return `${year}-${month}-${date} ${hour}:${minute}:${second}`
-};
+}
+
+function getDayValueFromDate(date) {
+  const jsDay = date.getDay();
+  const map = [null, 'mon', 'tue', 'wed', 'thu', 'fri', null];
+  return map[jsDay] || 'mon';
+}
 
 function Lunch() {
   const { mode, setMode } = useColorScheme();
+  const [selectedDay, setSelectedDay] = useState(new Date());
+  const days = [
+    { value: 'mon', label: 'Pondělí' },
+    { value: 'tue', label: 'Úterý' },
+    { value: 'wed', label: 'Středa' },
+    { value: 'thu', label: 'Čtvrtek' },
+    { value: 'fri', label: 'Pátek' },
+  ];
   const [userLocation, setUserLocation] = useState(null);
   if (!mode) {
     return null;
@@ -104,7 +120,37 @@ function Lunch() {
       </AppBar>
       <main>
         <Box sx={{ padding: theme.spacing(4, 0) }}>
-          <RestaurantListComponent userLocation={userLocation}/>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+            <ToggleButtonGroup
+                value={getDayValueFromDate(selectedDay)}
+                exclusive
+                onChange={(_, newDay) => {
+                  if (newDay !== null) {
+                    // Always select the correct weekday in the current week (Monday = 1)
+                    const daysMap = { mon: 1, tue: 2, wed: 3, thu: 4, fri: 5 };
+                    const today = new Date();
+                    const currentDay = today.getDay() === 0 ? 7 : today.getDay(); // Sunday as 7
+                    const monday = new Date(today);
+                    monday.setDate(today.getDate() - (currentDay - 1));
+                    const targetDay = daysMap[newDay];
+                    const nextDate = new Date(monday);
+                    nextDate.setDate(monday.getDate() + (targetDay - 1));
+                    setSelectedDay(nextDate);
+                  }
+                }}
+                aria-label="Den v týdnu"
+            >
+              {days.map((d) => (
+                  <ToggleButton key={d.value} value={d.value} aria-label={d.label}>
+                    {d.label}
+                  </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </Box>
+          <RestaurantListComponent
+              key={selectedDay.toISOString()} // Force remount on day change
+              userLocation={userLocation}
+              selectedDay={selectedDay}/>
         </Box>
       </main>
       {/* Footer */}
