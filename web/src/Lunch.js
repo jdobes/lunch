@@ -43,9 +43,23 @@ function getDayValueFromDate(date) {
   return map[jsDay] || 'mon';
 }
 
+function getRelevantToday() {
+  // return monday of the current week if the day is saturday or sunday
+  const today = new Date();
+  
+  const day = today.getDay();
+  if (day === 0) { // Sunday
+    today.setDate(today.getDate() - 6); // Move to Monday
+  } else if (day === 6) { // Saturday
+    today.setDate(today.getDate() - 5); // Move to Monday
+  }
+  
+  return today;
+}
+
 function Lunch() {
   const { mode, setMode } = useColorScheme();
-  const [selectedDay, setSelectedDay] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(getRelevantToday());
   const days = [
     { value: 'mon', label: 'Pondělí' },
     { value: 'tue', label: 'Úterý' },
