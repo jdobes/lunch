@@ -7,6 +7,16 @@ import RestaurantComponent from './Restaurant';
 import LoadingCircleComponent from './LoadingCircle';
 import { config } from './Constants'
 
+function formatDateYYYYMMDD(date) {
+  if (!date) {
+    return null;
+  }
+  const year = date.getFullYear();
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const day = ("0" + date.getDate()).slice(-2);
+  return `${year}-${month}-${day}`;
+}
+
 class RestaurantListComponent extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +30,7 @@ class RestaurantListComponent extends Component {
   }
 
   componentDidMount() {
-    Promise.all([fetch(config.API_URL + '/api/origins'), fetch(config.API_URL + '/api/restaurants'), fetch(config.API_URL + '/api/menus')])
+    Promise.all([fetch(config.API_URL + '/api/origins'), fetch(config.API_URL + '/api/restaurants'), fetch(config.API_URL + '/api/menus' + '?day=' + formatDateYYYYMMDD(this.props.selectedDay))])
       .then(([responseOrigins, responseRestaurants, responseMenus]) => {
         return Promise.all([responseOrigins.json(), responseRestaurants.json(), responseMenus.json()])
       })
