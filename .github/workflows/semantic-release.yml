@@ -15,7 +15,7 @@ jobs:
         fetch-depth: 0
         persist-credentials: false
     - name: Python Semantic Release
-      uses: python-semantic-release/python-semantic-release@master
+      uses: python-semantic-release/python-semantic-release@v9.21.1
       with:
         github_token: ${{ secrets.GH_TOKEN }}
         root_options: "-v -c releaserc.json"
