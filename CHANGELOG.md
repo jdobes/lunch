@@ -1,6 +1,28 @@
 # CHANGELOG
 
 
+## v1.7.1 (2025-05-26)
+
+### Bug Fixes
+
+- Python-semantic-release v10 contains various breaking changes, lock for now
+  ([`1e2d30d`](https://github.com/jdobes/lunch/commit/1e2d30d319da0bcb76a0dd3853a54e7696460be4))
+
+
+## v1.7.0 (2025-05-26)
+
+### Features
+
+- **api**: Calculate first day of the week for menu deletion
+  ([`62915f0`](https://github.com/jdobes/lunch/commit/62915f0b99de703ef2bec45b1f2157dcc4aac116))
+
+- **web**: Add day selection for restaurant menus
+  ([`30f5e30`](https://github.com/jdobes/lunch/commit/30f5e306639c2510e9e3426ff17cb647955ae858))
+
+- **web**: Set default selected day to monday if it's saturday/sunday
+  ([`c3ab59c`](https://github.com/jdobes/lunch/commit/c3ab59c62cff50022b5cfde59ad827050b2bd045))
+
+
 ## v1.6.0 (2025-05-06)
 
 ### Features
