@@ -1,6 +1,33 @@
 # CHANGELOG
 
 
+## v1.7.2 (2025-06-15)
+
+### Bug Fixes
+
+- Get sesamo from menicka
+  ([`96f7df6`](https://github.com/jdobes/lunch/commit/96f7df65423b50a17fa06661ec302dcb1dca74e9))
+
+- Nepal has new page
+  ([`6bc8360`](https://github.com/jdobes/lunch/commit/6bc8360d4cb6e66ceba103bca75a044da9f00191))
+
+- Spravne misto doesn't exist anymore
+  ([`18e9667`](https://github.com/jdobes/lunch/commit/18e9667fa9baed96d24a0e1aa475110a9ca39c43))
+
+### Chores
+
+- Publish image to ghcr.io
+  ([`611d682`](https://github.com/jdobes/lunch/commit/611d682f6a5839a3dd8da63e5b09a5b7d8349150))
+
+- Ubi10, python312, remove playwright
+  ([`d333425`](https://github.com/jdobes/lunch/commit/d333425e9155c0501477b6c964dca42ecf9a33e3))
+
+### Refactoring
+
+- Remove nginx
+  ([`ef71f9c`](https://github.com/jdobes/lunch/commit/ef71f9c44ebcbc183a2106c527a2d980291db5b1))
+
+
 ## v1.7.1 (2025-05-26)
 
 ### Bug Fixes
