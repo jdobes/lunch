@@ -4,7 +4,6 @@ peewee
 requests
 beautifulsoup4
 lxml
-playwright
 unidecode
 tzdata
 pytz

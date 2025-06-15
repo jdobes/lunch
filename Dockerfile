@@ -1,17 +1,13 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal
+FROM registry.access.redhat.com/ubi10/ubi-minimal
 
 ADD api/*.txt /lunch/
 
-RUN microdnf module enable nginx:1.22 && \
-    microdnf install sqlite python39 shadow-utils \
-                     libxml2-devel libxslt-devel gcc \
-                     python39-devel nginx poppler-utils \
-                     gtk3 alsa-lib libX11-xcb && \
+RUN microdnf -y install python3 nginx \
+        libxml2-devel libxslt-devel \
+        python3-devel poppler-utils && \
     microdnf clean all && \
-    pip3 install --no-cache-dir -r /lunch/requirements.txt && \
-    playwright install firefox
+    pip3 install --no-cache-dir -r /lunch/requirements.txt
 
-ENV PLAYWRIGHT_PROXY=""
 ENV TZ="Europe/Prague"
 ENV API_HOST="localhost"
 
