@@ -1,8 +1,8 @@
 # Lunch
 
 ## Components
-- **API** - Python app running on port 8001
-- **Web** - React app running on port 8000, contains a proxy to re-direct /api requests to **API** container
+- **API** - Python app running on port 8000
+- **Web** - React app, served by the Python webserver
 
 ## Build and run
 
@@ -17,5 +17,5 @@
 
 ## Frontend Development
 
-    docker-compose up -d lunch-api
+    docker-compose up -d
     npm start
