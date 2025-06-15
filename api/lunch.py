@@ -6,6 +6,7 @@ import sys
 
 from apscheduler.schedulers.background import BackgroundScheduler
 import connexion
+from flask import send_from_directory
 import pytz
 
 from .model import init_schema, Restaurant, RestaurantMenu
@@ -83,13 +84,25 @@ def main():
     app.add_api('openapi.spec.yml', validate_responses=True, strict_validation=True)
 
     @app.app.after_request
-    def set_default_headers(response): # pylint: disable=unused-variable
+    def set_default_headers(response):
         response.headers["Access-Control-Allow-Origin"] = "*"
         response.headers["Access-Control-Allow-Headers"] = "Content-Type, Access-Control-Allow-Headers"
         response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
         return response
 
-    app.run(host="0.0.0.0", port=8001)
+    @app.route('/')
+    def send_index():
+        return send_from_directory('/lunch/html/', 'index.html') 
+
+    @app.route('/<path:path>')
+    def send_root(path):
+        return send_from_directory('/lunch/html/', path)
+
+    @app.route('/static/js/<path:path>')
+    def send_js(path):
+        return send_from_directory('/lunch/html/static/js/', path)
+
+    app.run(host="0.0.0.0", port=8000)
 
 
 if __name__ == "__main__":

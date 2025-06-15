@@ -1,19 +1,9 @@
-version: "3.7"
 services:
   lunch-api:
-    command: /entrypoint.sh api
     build:
       context: ./
       dockerfile: ./Dockerfile
     image: lunch:latest
-    container_name: lunch_api
-    ports:
-      - "8001:8001"
-  lunch-web:
-    command: /entrypoint.sh web
-    environment:
-      API_HOST: lunch_api
-    image: lunch:latest
-    container_name: lunch_web
+    container_name: lunch
     ports:
       - "8000:8000"
