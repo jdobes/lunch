@@ -2,8 +2,8 @@ name: Build
 
 on:
   push:
-    branches:
-      - "master"
+    tags:
+      - "**"
 
 jobs:
   build:
@@ -12,9 +12,9 @@ jobs:
       group: build
       cancel-in-progress: true
     env:
-      REGISTRY: docker.io
-      REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
-      REGISTRY_PASS: ${{ secrets.REGISTRY_PASS }}
+      REGISTRY: ghcr.io
+      REGISTRY_USER: ${{ github.actor }}
+      REGISTRY_PASS: ${{ secrets.GITHUB_TOKEN }}
       REPO: jdobes/lunch
       PLATFORM: linux/amd64,linux/arm64
     steps:
@@ -31,7 +31,9 @@ jobs:
           echo "$REGISTRY_PASS" | podman login -u "$REGISTRY_USER" --password-stdin "$REGISTRY"
       - name: Build image
         run: |
-          podman build -f ./Dockerfile --platform "$PLATFORM" --manifest lunch .
+          podman build --platform "$PLATFORM" --manifest lunch .
       - name: Push image
         run: |
-          podman manifest push --all lunch docker://$REGISTRY/$REPO:$(git rev-parse --short HEAD)
+          podman manifest push --all lunch docker://$REGISTRY/$REPO:$(git describe --abbrev=0 --tags)
+          podman manifest push --all lunch docker://$REGISTRY/$REPO:latest
+          podman manifest rm lunch
