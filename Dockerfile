@@ -27,4 +27,4 @@ ADD web/nginx.conf        /etc/nginx/nginx.conf
 
 RUN chown -R nginx:nginx /usr/share/nginx/html
 
-ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,qwerty,alvin,moravia,portoriko,kanas_restaurant,kanas_jidelna,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,spravnemisto,sesamo,jeanpauls,rubin,poupe,charlies_square,u_3_certu_starobrnenska,padowetz,statl,tusto,sportpub
+ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,qwerty,alvin,moravia,portoriko,kanas_restaurant,kanas_jidelna,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,sesamo,jeanpauls,rubin,poupe,charlies_square,u_3_certu_starobrnenska,padowetz,statl,tusto,sportpub
