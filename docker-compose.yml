@@ -1,9 +1,0 @@
-services:
-  lunch-api:
-    build:
-      context: ./
-      dockerfile: ./Dockerfile
-    image: lunch:latest
-    container_name: lunch
-    ports:
-      - "8000:8000"

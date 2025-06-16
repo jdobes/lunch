@@ -8,7 +8,8 @@
 
     # Build React app assets first
     ./build_web.sh
-    docker-compose up --build
+    podman build -t localhost/jdobes/lunch:latest .
+    podman run --rm -p 8000:8000 localhost/jdobes/lunch:latest
 
 ## Using
 
@@ -17,5 +18,5 @@
 
 ## Frontend Development
 
-    docker-compose up -d
+    podman run --rm -p 8000:8000 localhost/jdobes/lunch:latest
     npm start
