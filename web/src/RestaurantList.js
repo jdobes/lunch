@@ -30,7 +30,7 @@ class RestaurantListComponent extends Component {
   }
 
   componentDidMount() {
-    Promise.all([fetch(config.API_URL + '/api/origins'), fetch(config.API_URL + '/api/restaurants'), fetch(config.API_URL + '/api/menus' + '?day=' + formatDateYYYYMMDD(this.props.selectedDay))])
+    Promise.all([fetch(config.API_URL + '/api/origins'), fetch(config.API_URL + '/api/restaurants'), fetch(config.API_URL + '/api/menus?day=' + formatDateYYYYMMDD(this.props.selectedDay))])
       .then(([responseOrigins, responseRestaurants, responseMenus]) => {
         return Promise.all([responseOrigins.json(), responseRestaurants.json(), responseMenus.json()])
       })

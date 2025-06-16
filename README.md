@@ -18,5 +18,11 @@
 
 ## Frontend Development
 
+    # Re-install dependencies and re-generate lock file
+    rm -rf node_modules package-lock.json
+    npm install
+
+    # Run the API
     podman run --rm -p 8000:8000 localhost/jdobes/lunch:latest
+    # Start node devel server
     npm start

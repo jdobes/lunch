@@ -10,7 +10,8 @@
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
-    "geolib": "latest"
+    "geolib": "latest",
+    "typescript": "4.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
