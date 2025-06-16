@@ -1,6 +1,41 @@
 # CHANGELOG
 
 
+## v1.7.3 (2025-06-16)
+
+### Bug Fixes
+
+- Restaurant naming
+  ([`69a47f8`](https://github.com/jdobes/lunch/commit/69a47f859eab0df2eada024fc76e730f61371708))
+
+- Use shorter day names on small displays
+  ([`09ad9aa`](https://github.com/jdobes/lunch/commit/09ad9aabfdb9fba79e43b5ef07fdf688106cbbfb))
+
+### Chores
+
+- Ubi10 and nodejs 22
+  ([`5e92f87`](https://github.com/jdobes/lunch/commit/5e92f87c4cd74a19b431f076052912c08fa7f091))
+
+- Update frontend deps
+  ([`dda725d`](https://github.com/jdobes/lunch/commit/dda725d0d6be47ca7b0cbdc05b46245a6efc5a3e))
+
+- Update readme
+  ([`69176b9`](https://github.com/jdobes/lunch/commit/69176b97f09fb880a5e804d12e024642add1a032))
+
+### Continuous Integration
+
+- Need tags
+  ([`7b42f39`](https://github.com/jdobes/lunch/commit/7b42f39056f6a1072b81ca823769e6a75ec7f82d))
+
+- Rebuild last tag if needed
+  ([`f1fd165`](https://github.com/jdobes/lunch/commit/f1fd165ea92d729ef8f1882e60461f2a2952d137))
+
+### Refactoring
+
+- Remove docker-compose with single service
+  ([`3379714`](https://github.com/jdobes/lunch/commit/3379714b0b8f1f5f3a07077773564e93e2595ee2))
+
+
 ## v1.7.2 (2025-06-15)
 
 ### Bug Fixes
