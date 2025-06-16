@@ -15,6 +15,7 @@ import NearMeOutlinedIcon from '@mui/icons-material/NearMeOutlined';
 import Link from '@mui/material/Link';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { isDev } from './Constants'
 import RestaurantListComponent from './RestaurantList';
@@ -68,6 +69,7 @@ function Lunch() {
     { value: 'fri', label: 'Pátek' },
   ];
   const [userLocation, setUserLocation] = useState(null);
+  const useShorterNames = useMediaQuery('(max-width:460px)');
   if (!mode) {
     return null;
   }
@@ -156,7 +158,7 @@ function Lunch() {
             >
               {days.map((d) => (
                   <ToggleButton key={d.value} value={d.value} aria-label={d.label}>
-                    {d.label}
+                    {useShorterNames ? d.label.substring(0, 2) : d.label}
                   </ToggleButton>
               ))}
             </ToggleButtonGroup>
