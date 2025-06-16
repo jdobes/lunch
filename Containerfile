@@ -19,6 +19,6 @@ ADD api/restaurants/*.py  /lunch/restaurants/
 ADD web/build/*           /lunch/html/
 ADD web/build/static/js/* /lunch/html/static/js/
 
-ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,qwerty,alvin,moravia,portoriko,kanas_restaurant,kanas_jidelna,nepal,royalnepal,purkynka,velorex,kotelna,padthai,3opice,sesamo,jeanpauls,rubin,poupe,charlies_square,u_3_certu_starobrnenska,padowetz,statl,tusto,sportpub
+ENV ENABLED_RESTAURANTS=asport,bistro22,cookpoint,kancl,qwerty,alvin,moravia,portoriko,kanas_restaurant,kanas_jidelna,nepal,royalnepal,purkynka,primesteak,kotelna,padthai,3opice,sesamo,jeanpauls,rubin,poupe,charlies_square,u_3_certu_starobrnenska,padowetz,statl,tusto,sportpub
 
 ENTRYPOINT ["python3", "-m", "lunch.lunch"]

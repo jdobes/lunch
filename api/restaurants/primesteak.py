@@ -4,7 +4,7 @@ import logging
 
 from .utils import fetch_html
 
-NAME = "Prime Steak / Velorex"
+NAME = "Prime Steak"
 URL = "https://www.primesteak.cz/menu/denni-menu/"
 GPS = (49.23179189396761, 16.590378328190717)
 
