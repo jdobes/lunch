@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.7.6 (2025-06-17)
+
+### Bug Fixes
+
+- Tag detection on last commit
+  ([`891ed4a`](https://github.com/jdobes/lunch/commit/891ed4a39f976246cc61713c3e97ae294aedac39))
+
+
 ## v1.7.5 (2025-06-17)
 
 ### Bug Fixes
