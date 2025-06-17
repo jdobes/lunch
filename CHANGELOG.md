@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.7.4 (2025-06-17)
+
+### Bug Fixes
+
+- Update semantic-release
+  ([`aa90e89`](https://github.com/jdobes/lunch/commit/aa90e89a966cc0f098783fc568ad0b7d85a3793e))
+
+### Continuous Integration
+
+- Rebuild only latest if tag not on the last commit
+  ([`1b7405d`](https://github.com/jdobes/lunch/commit/1b7405d3a2b81538119269f063d1ccb342c52202))
+
+
 ## v1.7.3 (2025-06-16)
 
 ### Bug Fixes
