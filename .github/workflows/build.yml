@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Build React app
         run: |
           ./build_web.sh
@@ -34,7 +36,7 @@ jobs:
           podman build --platform "$PLATFORM" --manifest lunch .
       - name: Push image
         run: |
-          TAG=$(git describe --abbrev=0 --tags || true)
+          TAG=$(git describe --exact-match || true)
           if [ "$TAG" != "" ]; then
               podman manifest push --all lunch docker://$REGISTRY/$REPO:$TAG
           fi
