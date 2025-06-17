@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.7.5 (2025-06-17)
+
+### Bug Fixes
+
+- Connexion 3
+  ([`9cdd197`](https://github.com/jdobes/lunch/commit/9cdd197060ca964fcb73b36e0890ea345bfad30f))
+
+
 ## v1.7.4 (2025-06-17)
 
 ### Bug Fixes
