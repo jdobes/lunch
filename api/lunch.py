@@ -5,7 +5,8 @@ import logging
 import sys
 
 from apscheduler.schedulers.background import BackgroundScheduler
-import connexion
+from connexion import FlaskApp
+from connexion.options import SwaggerUIOptions
 from flask import send_from_directory
 import pytz
 
@@ -79,9 +80,17 @@ def main():
     sched.start()
     logger.info("Sync scheduler enabled to run in following schedule: %s, %s", sync_days, sync_hours)
 
-    app = connexion.FlaskApp(__name__, options={"swagger_ui": True, "swagger_url": "/api/",
-                                                "openapi_spec_path": "/api/openapi.json"})
-    app.add_api('openapi.spec.yml', validate_responses=True, strict_validation=True)
+    app = FlaskApp(__name__)
+    app.add_api(
+        'openapi.spec.yml',
+        validate_responses=True,
+        strict_validation=True,
+        swagger_ui_options=SwaggerUIOptions(
+            swagger_ui=True,
+            swagger_ui_path="/api/ui/",
+            spec_path="/api/openapi.json",
+        )
+    )
 
     @app.app.after_request
     def set_default_headers(response):

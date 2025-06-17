@@ -1,5 +1,5 @@
 apscheduler
-connexion[swagger-ui]<3
+connexion[flask,swagger-ui,uvicorn]
 peewee
 requests
 beautifulsoup4
