@@ -26,18 +26,6 @@ const theme = createTheme({
   },
 });
 
-function getCurrentDate(){
-  let newDate = new Date()
-  let year = newDate.getFullYear();
-  let month = ("0" + (newDate.getMonth() + 1)).slice(-2);
-  let date = ("0" + newDate.getDate()).slice(-2);
-  let hour = ("0" + newDate.getHours()).slice(-2);
-  let minute = ("0" + newDate.getMinutes()).slice(-2);
-  let second = ("0" + newDate.getSeconds()).slice(-2);
-
-  return `${year}-${month}-${date} ${hour}:${minute}:${second}`
-}
-
 function getDayValueFromDate(date) {
   const jsDay = date.getDay();
   const map = [null, 'mon', 'tue', 'wed', 'thu', 'fri', null];
@@ -172,9 +160,6 @@ function Lunch() {
       {/* Footer */}
       <Box sx={{ padding: theme.spacing(8, 0) }}>
       <footer>
-        <Typography variant="body2" color="textSecondary" align="center">
-          {'Page loaded at ' + getCurrentDate() + '.'}
-        </Typography>
         <Typography variant="body2" color="textSecondary" align="center">
           {'Please visit '}
           <Link color="primary" href="https://github.com/jdobes/lunch" target="_blank" rel="noreferrer">
