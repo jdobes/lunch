@@ -16,7 +16,14 @@
 - **Main page** - http://localhost:8000/
 - **Swagger UI for API** - http://localhost:8000/api/
 
-## Frontend Development
+## API development
+
+    python3 -m venv api/.venv
+    source api/.venv/bin/activate
+    pip3 install -r api/requirements.txt
+    ...
+
+## Web development
 
     # Re-install dependencies and re-generate lock file
     rm -rf node_modules package-lock.json
