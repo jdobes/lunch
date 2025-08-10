@@ -1,5 +1,6 @@
 import os
 from peewee import SqliteDatabase, Model, TextField, ForeignKeyField, DateField, DoubleField
+from playhouse.sqlite_ext import JSONField
 
 DB_FILE = "/tmp/lunch.db"
 if os.path.isfile(DB_FILE):
@@ -26,6 +27,7 @@ class RestaurantMenu(BaseModel):
     restaurant = ForeignKeyField(model=Restaurant, null=False)
     day = DateField(null=False)
     menu = TextField(null=False)
+    menu_detail = JSONField(null=True)
 
     class Meta:
         indexes = (
