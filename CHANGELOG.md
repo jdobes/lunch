@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.7.7 (2025-10-02)
+
+### Bug Fixes
+
+- Branding update
+  ([`54c712f`](https://github.com/jdobes/lunch/commit/54c712f9935fd3562fa454fdf8a16e6b9a845595))
+
+
 ## v1.7.6 (2025-06-17)
 
 ### Bug Fixes
