@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.8.0 (2025-10-09)
+
+### Features
+
+- Add Bistro Šindelář and K2
+  ([`84fc677`](https://github.com/jdobes/lunch/commit/84fc677cd5668621fcd81c73a48bdaee38d9f5e0))
+
+
 ## v1.7.7 (2025-10-02)
 
 ### Bug Fixes
