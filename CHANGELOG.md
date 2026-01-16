@@ -2,6 +2,22 @@
 
 <!-- version list -->
 
+## v1.8.1 (2026-01-16)
+
+### Bug Fixes
+
+- Fix TikTok Nepal URL
+  ([`5ac62fa`](https://github.com/jdobes/lunch/commit/5ac62fafbbccd3ff54f92500263d533d61eba291))
+
+- Parse Royal Nepal menu from home page fragment
+  ([`0c426de`](https://github.com/jdobes/lunch/commit/0c426de3181021ea749f98519ac625a3471a35c1))
+
+### Documentation
+
+- Adding restaurant
+  ([`b574df6`](https://github.com/jdobes/lunch/commit/b574df61727517f9e5dec1725296cd1f22df308e))
+
+
 ## v1.8.0 (2025-10-09)
 
 ### Features
