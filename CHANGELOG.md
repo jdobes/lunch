@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.8.2 (2026-01-30)
+
+### Bug Fixes
+
+- Dynamically find Jean Paul's menu URL
+  ([`482b73c`](https://github.com/jdobes/lunch/commit/482b73c7f9d7d4ecc0b0dd5f433de36f3f9727ba))
+
+### Chores
+
+- Qwerty parser returns old menu consistently
+  ([`4ed3093`](https://github.com/jdobes/lunch/commit/4ed309394a48fac45d528072daab76f1383bcb76))
+
+
 ## v1.8.1 (2026-01-16)
 
 ### Bug Fixes
