@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 from datetime import date, timedelta
 import logging
+import re
 import subprocess
 import tempfile
 
 from unidecode import unidecode
 
-from .utils import fetch
+from .utils import fetch, fetch_html
 
 NAME = "Jean Paul's"
-URL = "https://www.jpbistro.cz/assets/menu/obed-menu/obed-technopark.pdf"
+URL = "https://www.jpbistro.cz/technologicky-park/"
 GPS = (49.230641595778884, 16.576966498445827)
 
 logger = logging.getLogger(__name__)
@@ -17,7 +18,14 @@ logger.setLevel(logging.INFO)
 
 
 def parse_menu():
-    response = fetch(URL, stream=True)
+    html = fetch_html(URL)
+    if not html:
+        return {}
+    menu_link = html.find("a", string="Obědové menu")
+    if not menu_link:
+        logger.warning("Could not find Jean Paul's lunch menu button")
+        return {}
+    response = fetch(menu_link.get("href"), stream=True)
     with tempfile.NamedTemporaryFile() as fp:
         for chunk in response.iter_content(chunk_size=1024):
             if chunk:
