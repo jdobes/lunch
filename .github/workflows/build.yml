@@ -36,6 +36,7 @@ jobs:
         run: |
           podman build --platform "$PLATFORM" --squash --manifest new_image .
       - name: Login to registry and push built image
+        if: github.event_name == 'push'
         run: |
           echo "$REGISTRY_PASS" | podman login -u "$REGISTRY_USER" --password-stdin "$REGISTRY"
           TAG=$(git describe --abbrev=0 || true)
