@@ -4,12 +4,15 @@ on:
   push:
     branches:
       - "master"
+  pull_request:
+    branches:
+      - "master"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     concurrency:
-      group: build
+      group: build-${{ github.ref }}
       cancel-in-progress: true
     env:
       REGISTRY: ghcr.io
@@ -17,6 +20,7 @@ jobs:
       REGISTRY_PASS: ${{ secrets.GITHUB_TOKEN }}
       REPO: jdobes/lunch
       PLATFORM: linux/amd64,linux/arm64
+      PACKAGE_NAME: lunch
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,17 +32,24 @@ jobs:
       - name: Install qemu-user-static for multi-arch build
         run: |
           sudo apt update && sudo apt install -y qemu-user-static
-      - name: Login to registry
+      - name: Build latest version
+        run: |
+          podman build --platform "$PLATFORM" --squash --manifest new_image .
+      - name: Login to registry and push built image
         run: |
           echo "$REGISTRY_PASS" | podman login -u "$REGISTRY_USER" --password-stdin "$REGISTRY"
-      - name: Build image
-        run: |
-          podman build --platform "$PLATFORM" --manifest lunch .
-      - name: Push image
-        run: |
-          TAG=$(git describe --exact-match || true)
+          TAG=$(git describe --abbrev=0 || true)
           if [ "$TAG" != "" ]; then
-              podman manifest push --all lunch docker://$REGISTRY/$REPO:$TAG
+              podman manifest push --all new_image docker://$REGISTRY/$REPO:$TAG
           fi
-          podman manifest push --all lunch docker://$REGISTRY/$REPO:latest
-          podman manifest rm lunch
+          podman manifest push --all new_image docker://$REGISTRY/$REPO:latest
+      - name: Delete old images
+        if: github.event_name == 'push'
+        uses: dataaxiom/ghcr-cleanup-action@cd0cdb900b5dbf3a6f2cc869f0dbb0b8211f50c4 # v1
+        with:
+          packages: ${{ env.PACKAGE_NAME }}
+          keep-n-tagged: 5
+          delete-untagged: true
+      - name: Cleanup
+        run: |
+          podman manifest rm new_image

@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi10/ubi-minimal
+FROM registry.access.redhat.com/ubi10/ubi-minimal:10.1-1770180557
 
 ADD api/*.txt /lunch/
 
