@@ -12,6 +12,10 @@
       "automerge": true,
       "automergeStrategy": "rebase",
       "automergeType": "pr"
+    },
+    {
+      "matchManagers": ["docker-compose"],
+      "enabled": false
     }
   ]
 }
