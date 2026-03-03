@@ -2,6 +2,37 @@
 
 <!-- version list -->
 
+## v1.9.0 (2026-03-03)
+
+### Chores
+
+- Add missing condition
+  ([`7f78b48`](https://github.com/jdobes/lunch/commit/7f78b48a6cb62ac115c9b4a24f61c83257054fc4))
+
+- Add renovate config
+  ([`a2e4c98`](https://github.com/jdobes/lunch/commit/a2e4c98b0f5c8038da6f541721ae5d107a16b806))
+
+- Re-build latest tag, remove old images, PR build support
+  ([`a88332a`](https://github.com/jdobes/lunch/commit/a88332a0d226869334c54b60479dfbdc1b368473))
+
+- Timezone doesn't need to be specified here [skip ci]
+  ([`244f6f5`](https://github.com/jdobes/lunch/commit/244f6f565ab8d6c16d7cbb2e00331f2dbddd0edf))
+
+- **deps**: Pin dependencies
+  ([`b5fff97`](https://github.com/jdobes/lunch/commit/b5fff9721ea5822439190f05cd97ec4803a35a89))
+
+- **deps**: Update references to v6
+  ([`d33f413`](https://github.com/jdobes/lunch/commit/d33f4139424bc08b2ef717eda97010fa57f38f50))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1772441549
+  ([`e4c1c0f`](https://github.com/jdobes/lunch/commit/e4c1c0f5b350cf7e621812a3fd0561334df28b88))
+
+### Features
+
+- Use Playwright and Gemini API to parse QWERTY
+  ([`1ec52ce`](https://github.com/jdobes/lunch/commit/1ec52cef594336a615b712346987a0995ddd544e))
+
+
 ## v1.8.2 (2026-01-30)
 
 ### Bug Fixes
