@@ -1,8 +1,14 @@
 from datetime import datetime
 import logging
+from datetime import date
 
 import requests
 from bs4 import BeautifulSoup
+from google import genai
+from google.genai import types
+from pydantic import BaseModel, Field
+from typing import List
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -14,6 +20,18 @@ EMPTY_RESPONSES = {
     "Restaurace má tento den zavřeno.",
     "Denní menu dle nabídky v restauraci",
 }
+
+GEMINI_MODEL = "gemini-3-flash-preview"
+#GEMINI_MODEL = "gemma-3-27b-it"
+
+
+class DailyMenu(BaseModel):
+    day: date = Field()
+    menu_lines: List[str]
+
+
+class WeeklyMenu(BaseModel):
+    days: List[DailyMenu]
 
 
 def fetch(url, encoding=None, stream=False):
@@ -54,4 +72,30 @@ def parse_menicka(html):
                     alergen.extract()
                 if tr.text not in EMPTY_RESPONSES:
                     result.setdefault(current_date, []).append(tr.text)
+    return result
+
+
+def gemini_parse_menu(image_path, prompt):
+    result = {}
+    with open(image_path, "rb") as f:
+        image_bytes = f.read()
+    client = genai.Client()
+    response = client.models.generate_content(
+        model=GEMINI_MODEL,
+        contents=[
+            types.Part.from_bytes(
+                data=image_bytes,
+                mime_type="image/jpeg",
+            ),
+            prompt
+        ],
+        config={
+            "response_mime_type": "application/json",
+            "response_json_schema": WeeklyMenu.model_json_schema(),
+        },
+    )
+    weekly_menu = WeeklyMenu.model_validate_json(response.text)
+    for daily_menu in weekly_menu.days:
+        for menu_line in daily_menu.menu_lines:
+            result.setdefault(daily_menu.day, []).append(menu_line)
     return result

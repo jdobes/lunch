@@ -4,14 +4,15 @@
 
 - **API** - Python app running on port 8000
 - **Web** - React app, served by the Python webserver
+- **Playwright** - Container running Playwright server to scrape menu from pages like Facebook
+- **Gemini API** - To interpret menu from picture
 
 ## Build and run
 
 ```bash
 # Build React app assets first
 ./build_web.sh
-podman build -t localhost/jdobes/lunch:latest .
-podman run --rm -p 8000:8000 localhost/jdobes/lunch:latest
+docker-compose up --build
 ```
 
 ## Using

@@ -1,0 +1,22 @@
+services:
+  lunch:
+    container_name: lunch
+    image: localhost/jdobes/lunch:latest
+    build:
+      context: .
+      dockerfile: Containerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - playwright
+    environment:
+      - PLAYWRIGHT_WS_ENDPOINT=ws://playwright:3000
+      - PLAYWRIGHT_PROXY=
+      - GEMINI_API_KEY=
+
+  playwright:
+    container_name: playwright
+    image: mcr.microsoft.com/playwright:v1.58.0
+    ports:
+      - "3000:3000"
+    command: npx -y playwright@1.58.0 run-server --port 3000 --host 0.0.0.0
