@@ -2,6 +2,22 @@
 
 <!-- version list -->
 
+## v1.9.1 (2026-03-04)
+
+### Bug Fixes
+
+- Replace playwright with graph API and unofficial way to obtain token
+  ([`3cc6891`](https://github.com/jdobes/lunch/commit/3cc68914f061c3d151e39c05bd06a213963a232b))
+
+### Chores
+
+- Disable docker-compose updates
+  ([`ae9b519`](https://github.com/jdobes/lunch/commit/ae9b5194e9ec81b151d17e352914754111f9d690))
+
+- **deps**: Update mcr.microsoft.com/playwright docker tag to v1.58.2
+  ([`85ebda1`](https://github.com/jdobes/lunch/commit/85ebda19799f5c05069c43ca3ef6ed90835d0fa0))
+
+
 ## v1.9.0 (2026-03-03)
 
 ### Chores
