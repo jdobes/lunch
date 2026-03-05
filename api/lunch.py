@@ -56,7 +56,7 @@ def main():
 
     enabled_restaurants = os.getenv("ENABLED_RESTAURANTS", "").split(",")
     sync_days = os.getenv("SYNC_DAYS", "mon-fri")
-    sync_hours = os.getenv("SYNC_HOURS", "8-15")
+    sync_hours = os.getenv("SYNC_HOURS", "9-11")
 
     init_schema()
     logger.info("Database schema initialized.")
