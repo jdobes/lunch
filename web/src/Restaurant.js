@@ -6,7 +6,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Chip from '@mui/material/Chip';
 import Link from '@mui/material/Link'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PlaceTwoToneIcon from '@mui/icons-material/PlaceTwoTone';
+import RouteIcon from '@mui/icons-material/Route';
 import Typography from '@mui/material/Typography';
 
 const mapsUrl = "https://mapy.cz/zakladni?q="
@@ -28,8 +28,8 @@ class RestaurantComponent extends Component {
           id="panel-header"
           >
             <Typography variant="h6" sx={{ flexGrow: 1 }} >{this.props.detail.name}</Typography>
-            <Chip icon={<PlaceTwoToneIcon />} variant="outlined" color="info" onClick={() => { window.open(`${mapsUrl}${this.props.detail.latitude},${this.props.detail.longitude}`); }} label={
-              <Typography>
+            <Chip icon={<RouteIcon />} variant="filled" onClick={() => { window.open(`${mapsUrl}${this.props.detail.latitude},${this.props.detail.longitude}`); }} label={
+              <Typography >
                  {formatDistance(this.props.distance)}
               </Typography>
             }/>
