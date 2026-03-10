@@ -4,8 +4,7 @@
 
 - **API** - Python app running on port 8000
 - **Web** - React app, served by the Python webserver
-- **Playwright** - Container running Playwright server to scrape menu from pages like Facebook
-- **Gemini API** - To interpret menu from picture
+- **Gemini API** - To interpret menu from pictures and apply specified formatting
 
 ## Build and run
 
