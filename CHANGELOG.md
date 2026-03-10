@@ -2,6 +2,27 @@
 
 <!-- version list -->
 
+## v1.10.0 (2026-03-10)
+
+### Chores
+
+- Bump deps
+  ([`9aa3f13`](https://github.com/jdobes/lunch/commit/9aa3f138292ab7ef15b2727bbb1138f87fec2d54))
+
+- Change the schedule
+  ([`018bd37`](https://github.com/jdobes/lunch/commit/018bd37c1ac73b3daf06efb6bd9c08585119c654))
+
+### Documentation
+
+- Playwright no longer present (again)
+  ([`9403d88`](https://github.com/jdobes/lunch/commit/9403d8816f89b365e796c13b2d0ab619ccc276c7))
+
+### Features
+
+- Re-style directions chip
+  ([`8822c43`](https://github.com/jdobes/lunch/commit/8822c43f8aaa54c6de8b2d24d46382fd057ac9d3))
+
+
 ## v1.9.1 (2026-03-04)
 
 ### Bug Fixes
