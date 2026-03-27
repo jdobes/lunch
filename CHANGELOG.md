@@ -2,6 +2,25 @@
 
 <!-- version list -->
 
+## v1.11.0 (2026-03-27)
+
+### Chores
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1773895769
+  ([`d2f4576`](https://github.com/jdobes/lunch/commit/d2f4576ce02abea39578e0afef32c31012adc106))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1774228210
+  ([`bdfe51f`](https://github.com/jdobes/lunch/commit/bdfe51ff856f1fbf664813bc00d78015e9548fa4))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1774545417
+  ([`c435e64`](https://github.com/jdobes/lunch/commit/c435e6406555bec789072fbf7d9d33a589c615d7))
+
+### Features
+
+- Add MCP server
+  ([`d7efc7a`](https://github.com/jdobes/lunch/commit/d7efc7a117dc897d38e513e582853850507dbba8))
+
+
 ## v1.10.0 (2026-03-10)
 
 ### Chores
