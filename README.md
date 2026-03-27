@@ -2,9 +2,13 @@
 
 ## Components
 
-- **API** - Python app running on port 8000
-- **Web** - React app, served by the Python webserver
-- **Gemini API** - To interpret menu from pictures and apply specified formatting
+- **API** - Main app logic, running on port 8000
+- **Web** - User interface, served by the Python app
+- **MCP Server** - AI integrations, running on port 9000
+
+## Dependencies
+
+- **Gemini API** - To interpret menu from pictures and apply specified formatting (currently optional)
 
 ## Build and run
 
@@ -18,6 +22,7 @@ docker-compose up --build
 
 - **Main page** - http://localhost:8000/
 - **Swagger UI for API** - http://localhost:8000/api/
+- **MCP Server** - http://localhost:9000/mcp
 
 ## Frontend Development
 
