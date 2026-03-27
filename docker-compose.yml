@@ -10,3 +10,9 @@ services:
     environment:
       - FACEBOOK_COOKIE=
       - GEMINI_API_KEY=
+  lunch-mcp:
+    container_name: lunch-mcp
+    image: localhost/jdobes/lunch:latest
+    entrypoint: ["python3", "-m", "lunch.mcp"]
+    ports:
+      - "9000:9000"

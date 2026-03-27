@@ -8,3 +8,4 @@ unidecode
 tzdata
 pytz
 google-genai
+fastmcp
