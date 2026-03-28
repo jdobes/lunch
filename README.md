@@ -1,5 +1,10 @@
 # Lunch
 
+## Public instance
+
+- **Web** - [https://lunch.owny.cz](https://lunch.owny.cz)
+- **MCP Server** - [https://lunch.owny.cz/mcp](https://lunch.owny.cz/mcp)
+
 ## Components
 
 - **API** - Main app logic, running on port 8000
