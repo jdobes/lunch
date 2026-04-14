@@ -7,9 +7,8 @@ services:
       dockerfile: Containerfile
     ports:
       - "8000:8000"
-    environment:
-      - FACEBOOK_COOKIE=
-      - GEMINI_API_KEY=
+    env_file:
+      - "./.env"
   lunch-mcp:
     container_name: lunch-mcp
     image: localhost/jdobes/lunch:latest

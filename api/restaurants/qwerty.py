@@ -2,14 +2,13 @@ import logging
 import os
 import requests
 
-from .facebook_utils import get_page_posts
+from .utils import fetch_html
 from .utils import gemini_parse_menu
 
 NAME = "Qwerty"
-URL = "https://www.facebook.com/QwertyRestaurant"
+URL = "https://qwerty-restaurant--catering3.webnode.cz/menu/"
 GPS = (49.235655201154906, 16.573111921257983)
 
-FACEBOOK_COOKIE = os.getenv("FACEBOOK_COOKIE", "")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
 GEMINI_PROMPT = """Obrázek obsahuje denní menu na celý týden.
@@ -27,32 +26,41 @@ logger.setLevel(logging.INFO)
 def parse_menu():
     result = {}
 
-    if not FACEBOOK_COOKIE or not GEMINI_API_KEY:
-        logger.warning("Facebook cookie or Gemini API key not set! Can't sync.")
+    if not GEMINI_API_KEY:
+        logger.warning("Gemini API key not set! Can't sync.")
         return result
 
-    page_posts = get_page_posts(URL.split("/")[-1])
+    page = fetch_html(URL)
 
-    downloaded = []
-    for idx, post in enumerate(page_posts):
-        response = requests.get(post["full_picture"], timeout=10)
-        if response.status_code == 200:
-            filename = f"/tmp/qwerty_{idx}.jpg"
-            with open(filename, "wb") as pic_f:
-                pic_f.write(response.content)
-            logger.debug("Downloaded image %s", filename)
-            downloaded.append(filename)
+    src = None
+    main = page.find("main")
+    if main:
+        img = main.find("img")
+        if img:
+            src = img["src"]
+    if not src:
+        logger.warning("Picture not found on the page")
+        return result
+
+    downloaded = None
+
+    response = requests.get(src, timeout=10)
+    if response.status_code == 200:
+        filename = f"/tmp/qwerty.jpg"
+        with open(filename, "wb") as pic_f:
+            pic_f.write(response.content)
+        logger.debug("Downloaded image: %s", filename)
+        downloaded = filename
 
     # Try the newest image, if the image isn't menu we are screwed
     if downloaded:
-        result = gemini_parse_menu(downloaded[0], GEMINI_PROMPT)
+        result = gemini_parse_menu(downloaded, GEMINI_PROMPT)
 
     if not result:
         logger.warning("No menu found in the last image.")
 
     # Cleanup
-    for image_path in downloaded:
-        os.unlink(image_path)
+    os.unlink(downloaded)
 
     return result
 

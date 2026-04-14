@@ -21,8 +21,7 @@ EMPTY_RESPONSES = {
     "Denní menu dle nabídky v restauraci",
 }
 
-GEMINI_MODEL = "gemini-3-flash-preview"
-#GEMINI_MODEL = "gemma-3-27b-it"
+MODEL = "gemini-3-flash-preview"
 
 
 class DailyMenu(BaseModel):
@@ -80,20 +79,24 @@ def gemini_parse_menu(image_path, prompt):
     with open(image_path, "rb") as f:
         image_bytes = f.read()
     client = genai.Client()
-    response = client.models.generate_content(
-        model=GEMINI_MODEL,
-        contents=[
-            types.Part.from_bytes(
-                data=image_bytes,
-                mime_type="image/jpeg",
-            ),
-            prompt
-        ],
-        config={
-            "response_mime_type": "application/json",
-            "response_json_schema": WeeklyMenu.model_json_schema(),
-        },
-    )
+    try:
+        response = client.models.generate_content(
+            model=MODEL,
+            contents=[
+                types.Part.from_bytes(
+                    data=image_bytes,
+                    mime_type="image/jpeg",
+                ),
+                prompt
+            ],
+            config={
+                "response_mime_type": "application/json",
+                "response_json_schema": WeeklyMenu.model_json_schema(),
+            },
+        )
+    except genai.errors.ClientError as exc:
+        logger.warning("Google returned error: %s", exc)
+        return result
     weekly_menu = WeeklyMenu.model_validate_json(response.text)
     for daily_menu in weekly_menu.days:
         for menu_line in daily_menu.menu_lines:
