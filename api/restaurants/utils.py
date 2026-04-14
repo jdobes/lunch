@@ -36,7 +36,11 @@ class WeeklyMenu(BaseModel):
 def fetch(url, encoding=None, stream=False):
     for _ in range(3):
         try:
-            response = requests.get(url, stream=stream)
+            response = requests.get(
+                url,
+                headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"},
+                stream=stream
+            )
             if encoding:
                 response.encoding = encoding
             if response.status_code == 200:
