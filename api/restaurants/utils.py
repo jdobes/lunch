@@ -74,21 +74,22 @@ def parse_menicka(html):
     return result
 
 
-def gemini_parse_menu(image_path, prompt):
+def gemini_parse_menu(prompt, image_path=None):
     result = {}
-    with open(image_path, "rb") as f:
-        image_bytes = f.read()
+    contents = [prompt]
+    if image_path:
+        with open(image_path, "rb") as f:
+            image_bytes = f.read()
+        part = types.Part.from_bytes(
+            data=image_bytes,
+            mime_type="image/jpeg",
+        )
+        contents.append(part)
     client = genai.Client()
     try:
         response = client.models.generate_content(
             model=MODEL,
-            contents=[
-                types.Part.from_bytes(
-                    data=image_bytes,
-                    mime_type="image/jpeg",
-                ),
-                prompt
-            ],
+            contents=contents,
             config={
                 "response_mime_type": "application/json",
                 "response_json_schema": WeeklyMenu.model_json_schema(),

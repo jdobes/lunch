@@ -54,7 +54,7 @@ def parse_menu():
 
     # Try the newest image, if the image isn't menu we are screwed
     if downloaded:
-        result = gemini_parse_menu(downloaded, GEMINI_PROMPT)
+        result = gemini_parse_menu(GEMINI_PROMPT, image_path=downloaded)
 
     if not result:
         logger.warning("No menu found in the last image.")
