@@ -9,8 +9,6 @@ NAME = "Qwerty"
 URL = "https://qwerty-restaurant--catering3.webnode.cz/menu/"
 GPS = (49.235655201154906, 16.573111921257983)
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-
 GEMINI_PROMPT = """Obrázek obsahuje denní menu na celý týden.
 Pro každý den poskládej seznam, co je právě k dispozici - jídla pro konkrétní den + týdenní menu + stálá nabídka.
 Vynechej alergeny označené čísly. Na konec každého řádku přidej cenu, pokud je k dispozici.
@@ -25,10 +23,6 @@ logger.setLevel(logging.INFO)
 
 def parse_menu():
     result = {}
-
-    if not GEMINI_API_KEY:
-        logger.warning("Gemini API key not set! Can't sync.")
-        return result
 
     page = fetch_html(URL)
 
