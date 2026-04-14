@@ -2,6 +2,45 @@
 
 <!-- version list -->
 
+## v1.12.0 (2026-04-14)
+
+### Bug Fixes
+
+- Fetch Qwerty menu pic from website
+  ([`ee3e995`](https://github.com/jdobes/lunch/commit/ee3e995f10e013fbc48188b26ce56fc7253a0775))
+
+### Chores
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1776071394
+  ([`e8e3714`](https://github.com/jdobes/lunch/commit/e8e3714ae5e6a2974e7f4dcf0831dcd45b161e4e))
+
+### Documentation
+
+- Add MCP and update a little [skip ci]
+  ([`554d6cd`](https://github.com/jdobes/lunch/commit/554d6cdf15cc96478027f818d3d2cc33e7e4846a))
+
+- Mention live instance URL [skip ci]
+  ([`874ebfc`](https://github.com/jdobes/lunch/commit/874ebfce386d444a6f7319adfd0ba229a9997bad))
+
+### Features
+
+- Improve charlies park menu from website + ai formatting
+  ([`d8cf63d`](https://github.com/jdobes/lunch/commit/d8cf63df8c4fa2a307335a59c28d16a233bd8f05))
+
+### Performance Improvements
+
+- Don't sync restaurant menu if it's already present for current day
+  ([`e3a0d2f`](https://github.com/jdobes/lunch/commit/e3a0d2f1af3dd7a77d7d8dd1aa32ad24a7471560))
+
+### Refactoring
+
+- Don't need api key check
+  ([`80534b3`](https://github.com/jdobes/lunch/commit/80534b383554a0d5753a1a81f84023196d641b3d))
+
+- Make image attachment optional
+  ([`0ca3019`](https://github.com/jdobes/lunch/commit/0ca30190b9bfa962d40d64cbffc20f8dac8315b9))
+
+
 ## v1.11.0 (2026-03-27)
 
 ### Chores
