@@ -15,14 +15,25 @@ from .model import init_schema, Restaurant, RestaurantMenu
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+def get_now():
+    return datetime.now(pytz.timezone(os.getenv("TZ")))
+
+def get_today():
+    return get_now().date()
+
 def get_first_day_of_week():
-    now = datetime.now(pytz.timezone(os.getenv("TZ")))
+    now = get_now()
     first_day = now - timedelta(days=now.weekday())
     return date(first_day.year, first_day.month, first_day.day)
 
 def sync(restaurants):
     logger.info("Syncing menus.")
+    today = get_today()
     for restaurant in restaurants:
+        restaurant_obj = Restaurant.get(label=restaurant)
+        if RestaurantMenu.select().where((RestaurantMenu.restaurant == restaurant_obj) & (RestaurantMenu.day == today)).exists():
+            logger.info("Skipping %s: already synced for %s", restaurant, today)
+            continue
         logger.info("Parsing: %s" % restaurant)
         try:
             parsed_data = restaurants[restaurant].parse_menu()
@@ -32,7 +43,6 @@ def sync(restaurants):
         if not parsed_data:
             logger.error("Unable to sync %s: empty response from module", restaurant)
             continue
-        restaurant_obj = Restaurant.get(label=restaurant)
         for menu_day, menu_lines in parsed_data.items():
             RestaurantMenu.replace(restaurant=restaurant_obj, day=menu_day, menu="\n".join(menu_lines)).execute()
         logger.info("Synced: %s" % restaurant)
