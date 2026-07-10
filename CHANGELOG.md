@@ -2,6 +2,43 @@
 
 <!-- version list -->
 
+## v1.12.1 (2026-07-10)
+
+### Bug Fixes
+
+- **royalnepal**: Update parser for new site markup
+  ([`69d1415`](https://github.com/jdobes/lunch/commit/69d14150a6c3e208a245aa7b7ed22485df7d0979))
+
+### Chores
+
+- **deps**: Update references
+  ([`9fedeb6`](https://github.com/jdobes/lunch/commit/9fedeb66822d3030afca4a7034a178995b26fbf6))
+
+- **deps**: Update references
+  ([`72daac2`](https://github.com/jdobes/lunch/commit/72daac2627117572fe900f8a597eb8b2dfdb1752))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1776646707
+  ([`ae263c7`](https://github.com/jdobes/lunch/commit/ae263c7ccc2e51055dbb5f3a85b3b125cff18407))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1776834797
+  ([`67be5d8`](https://github.com/jdobes/lunch/commit/67be5d8d9ac1be5320bc97ff5b468fc9344ca348))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1777858393
+  ([`cecefbf`](https://github.com/jdobes/lunch/commit/cecefbfdabf3663722b930d531d999fab90bdd80))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1778058333
+  ([`1644a38`](https://github.com/jdobes/lunch/commit/1644a38caa290756696b3eb2f4fe86563eae23fd))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.1-1778461919
+  ([`5b1cf15`](https://github.com/jdobes/lunch/commit/5b1cf150b974208aa448e4812c1e324810eb58a0))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1779773684
+  ([`be2ce86`](https://github.com/jdobes/lunch/commit/be2ce864994f57d07a000699b7015a61bb179629))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1779862102
+  ([`6755c27`](https://github.com/jdobes/lunch/commit/6755c27eb57f2a5845182338798dd02b865fa3d2))
+
+
 ## v1.12.0 (2026-04-14)
 
 ### Bug Fixes
