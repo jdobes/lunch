@@ -23,7 +23,7 @@ jobs:
       PACKAGE_NAME: lunch
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           fetch-depth: 0
       - name: Build React app
@@ -46,7 +46,7 @@ jobs:
           podman manifest push --all new_image docker://$REGISTRY/$REPO:latest
       - name: Delete old images
         if: github.event_name == 'push'
-        uses: dataaxiom/ghcr-cleanup-action@f092b48ba3b604b2a83690dc4b2bbb3392e1045f # v1
+        uses: dataaxiom/ghcr-cleanup-action@d52806a0dc70b430571a37da1fde39733ffd640f # v1
         with:
           packages: ${{ env.PACKAGE_NAME }}
           keep-n-tagged: 5
