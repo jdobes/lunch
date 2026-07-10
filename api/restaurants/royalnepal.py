@@ -12,21 +12,19 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
+WEEKDAYS = {"mon": 0, "tue": 1, "wed": 2, "thu": 3, "fri": 4}
+
+
 def parse_menu():
     today = date.today()
     last_monday = today - timedelta(days=today.weekday())
     html = fetch_html(URL)
     result = {}
     if html:
-        for weekday, day_section in enumerate(html.find_all("div", {"class": "weekly-template-container12"})):
+        for day_section in html.find_all("div", {"class": "tabCont"}):
+            weekday = WEEKDAYS.get(day_section.get("mc-data"))
+            if weekday is None:
+                continue
             current_date = last_monday + timedelta(weekday)
-            menu = []
-            soup = day_section.find("div", {"mc-template": "soup"})
-            if soup:
-                menu.append(soup.get_text(" ", True))
-            for main in day_section.find_all("div", {"mc-template": "main"}):
-                menu.append(main.get_text(" ", True))
-            for weekly_main in day_section.find_all("div", {"mc-template": "weekly"}):
-                menu.append(weekly_main.get_text(" ", True))
-            result[current_date] = menu
+            result[current_date] = [item.get_text(" ", True) for item in day_section.find_all("div", {"mc-template": "item"})]
     return result
