@@ -75,10 +75,10 @@ def parse_menicka(html):
                     alergen.extract()
                 line = ""
                 for td in tr.find_all("td"):
-                    if line:
+                    td_text = td.text.strip()
+                    if line and td_text:
                         line += " "
-                    line += td.text.strip()
-
+                    line += td_text
                 if line not in EMPTY_RESPONSES:
                     result.setdefault(current_date, []).append(line)
     return result
