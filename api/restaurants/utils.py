@@ -61,7 +61,7 @@ def fetch_html(url, encoding="utf-8"):
 
 
 def fetch_menicka(restaurant_id):
-    return fetch_html(MENICKA_URL % restaurant_id, encoding="windows-1250")
+    return fetch_html(MENICKA_URL % restaurant_id)
 
 
 def parse_menicka(html):
