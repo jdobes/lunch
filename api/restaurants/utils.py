@@ -73,8 +73,14 @@ def parse_menicka(html):
             for tr in content.find_all("tr"):
                 for alergen in tr.find_all("em"):
                     alergen.extract()
-                if tr.text not in EMPTY_RESPONSES:
-                    result.setdefault(current_date, []).append(tr.text)
+                line = ""
+                for td in tr.find_all("td"):
+                    if line:
+                        line += " "
+                    line += td.text.strip()
+
+                if line not in EMPTY_RESPONSES:
+                    result.setdefault(current_date, []).append(line)
     return result
 
 
