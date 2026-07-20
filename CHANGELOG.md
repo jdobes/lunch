@@ -2,6 +2,31 @@
 
 <!-- version list -->
 
+## v1.12.2 (2026-07-20)
+
+### Bug Fixes
+
+- Correctly detect empty responses
+  ([`38bcccb`](https://github.com/jdobes/lunch/commit/38bcccb7e8122e06fe871415072d01a6c18a0dfe))
+
+- Menicka.cz now returns unicode
+  ([`ecc485c`](https://github.com/jdobes/lunch/commit/ecc485c5ba18a98ce50c8480f8954cfca311c398))
+
+- Strip menicka.cz lines
+  ([`fb28e57`](https://github.com/jdobes/lunch/commit/fb28e572eaa1a6d690edf155ea71bb5b492f6b56))
+
+### Chores
+
+- **deps**: Update actions/checkout action to v7
+  ([`3d3ecbd`](https://github.com/jdobes/lunch/commit/3d3ecbdf8e52f11333cefdb93078d8651da168f8))
+
+- **deps**: Update references
+  ([`eccac29`](https://github.com/jdobes/lunch/commit/eccac294260b5fe36a7fb1fc3a69535a679b43be))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1784094212
+  ([`785b1c3`](https://github.com/jdobes/lunch/commit/785b1c381a2b0c7d383c5322778ba7133a221e3c))
+
+
 ## v1.12.1 (2026-07-10)
 
 ### Bug Fixes
