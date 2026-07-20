@@ -1,17 +1,21 @@
 from datetime import datetime
+import functools
+import json
 import logging
-from datetime import date
+from datetime import datetime
+import base64
+import os
 
 import requests
 from bs4 import BeautifulSoup
-from google import genai
-from google.genai import types
-from pydantic import BaseModel, Field
-from typing import List
+from openai import OpenAI, OpenAIError
 
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-6-luna")
 
 MENICKA_URL = "https://www.menicka.cz/api/iframe/?id=%s"
 
@@ -21,16 +25,24 @@ EMPTY_RESPONSES = {
     "Denní menu dle nabídky v restauraci",
 }
 
-MODEL = "gemini-3-flash-preview"
+SYSTEM_PROMPT = """
+Uživatel zadá formátovací instrukce pro týdenní menu restaurace a samotný obsah menu.
+Obsah menu může být ve formě přiloženého obrázku.
+Vrať výsledek ve formátu JSON. 
 
-
-class DailyMenu(BaseModel):
-    day: date = Field()
-    menu_lines: List[str]
-
-
-class WeeklyMenu(BaseModel):
-    days: List[DailyMenu]
+PŘÍKLAD JSON VÝSTUPU:
+{
+    "days": [
+      {
+        "day": "2026-05-12",
+        "menu_lines": [
+            "item1",
+            "item2"
+        ]
+      }
+    ]
+}
+"""
 
 
 def fetch(url, encoding=None, stream=False):
@@ -84,32 +96,69 @@ def parse_menicka(html):
     return result
 
 
-def gemini_parse_menu(prompt, image_path=None):
+def is_llm_available() -> bool:
+    return all((
+        OPENAI_BASE_URL,
+        OPENAI_MODEL,
+        os.getenv("OPENAI_API_KEY", ""),
+    ))
+
+
+def llm_required(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if not is_llm_available():
+            logger.warning("LLM is required for %s parser!", func.__name__)
+            return {}
+        return func(*args, **kwargs)
+    return wrapper
+
+
+def llm_parse_menu(prompt, image_path=None):
     result = {}
-    contents = [prompt]
+    
+    messages = [{"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": [{"type": "text", "text": prompt}]}]
     if image_path:
         with open(image_path, "rb") as f:
             image_bytes = f.read()
-        part = types.Part.from_bytes(
-            data=image_bytes,
-            mime_type="image/jpeg",
-        )
-        contents.append(part)
-    client = genai.Client()
+        image_b64 = base64.b64encode(image_bytes).decode("utf-8")
+        messages[1]["content"].append({
+            "type": "image_url",
+            "image_url": {"url": f"data:image/jpeg;base64,{image_b64}"},
+        })
+
+    extra_headers = {}
+    # Workaround for OpenCode Go API
+    if "opencode" in OPENAI_BASE_URL and "go" in OPENAI_BASE_URL:
+        extra_headers["x-opencode-session"] = "lunch"
+
+    client = OpenAI()
     try:
-        response = client.models.generate_content(
-            model=MODEL,
-            contents=contents,
-            config={
-                "response_mime_type": "application/json",
-                "response_json_schema": WeeklyMenu.model_json_schema(),
+        # Make sure to set correctly in environment:
+        #   OPENAI_BASE_URL
+        #   OPENAI_API_KEY
+        response = client.chat.completions.create(
+            model=OPENAI_MODEL,
+            messages=messages,
+            response_format={
+                "type": "json_object",
             },
+            reasoning_effort="medium",
+            extra_headers=extra_headers,
         )
-    except genai.errors.ClientError as exc:
-        logger.warning("Google returned error: %s", exc)
+    except OpenAIError as exc:
+        logger.warning("OpenAI-like API returned error: %s", exc)
         return result
-    weekly_menu = WeeklyMenu.model_validate_json(response.text)
-    for daily_menu in weekly_menu.days:
-        for menu_line in daily_menu.menu_lines:
-            result.setdefault(daily_menu.day, []).append(menu_line)
+
+    try:
+        weekly_menu = json.loads(response.choices[0].message.content)
+    except json.JSONDecodeError as exc:
+        logger.warning("Unable to parse JSON returned from LLM: %s", exc)
+        return result
+
+    for daily_menu in weekly_menu["days"]:
+        for menu_line in daily_menu["menu_lines"]:
+            day = datetime.strptime(daily_menu["day"], "%Y-%m-%d").date()
+            result.setdefault(day, []).append(menu_line)
     return result

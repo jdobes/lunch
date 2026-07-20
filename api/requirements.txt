@@ -7,5 +7,5 @@ lxml
 unidecode
 tzdata
 pytz
-google-genai
+openai
 fastmcp

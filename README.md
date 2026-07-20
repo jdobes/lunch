@@ -13,7 +13,10 @@
 
 ## Dependencies
 
-- **Gemini API** - To interpret menu from pictures and apply specified formatting (currently optional)
+- **LLM API** - To interpret menu from pictures and apply specified formatting (required for some parsers, optional for others). Make sure to configure following env vars:
+  - `OPENAI_BASE_URL`
+  - `OPENAI_API_KEY`
+  - `OPENAI_MODEL`
 
 ## Build and run
 

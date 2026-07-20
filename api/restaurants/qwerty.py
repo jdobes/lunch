@@ -3,13 +3,14 @@ import os
 import requests
 
 from .utils import fetch_html
-from .utils import gemini_parse_menu
+from .utils import llm_parse_menu
+from .utils import llm_required
 
 NAME = "Qwerty"
 URL = "https://qwerty-restaurant--catering3.webnode.cz/menu/"
 GPS = (49.235655201154906, 16.573111921257983)
 
-GEMINI_PROMPT = """Obrázek obsahuje denní menu na celý týden.
+LLM_PROMPT = """Obrázek obsahuje denní menu na celý týden.
 Pro každý den poskládej seznam, co je právě k dispozici - jídla pro konkrétní den + týdenní menu + stálá nabídka.
 Vynechej alergeny označené čísly. Na konec každého řádku přidej cenu, pokud je k dispozici.
 Na začátek řádku, který označuje polévku, přidej "Polévka: ".
@@ -21,6 +22,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
+@llm_required
 def parse_menu():
     result = {}
 
@@ -48,7 +50,7 @@ def parse_menu():
 
     # Try the newest image, if the image isn't menu we are screwed
     if downloaded:
-        result = gemini_parse_menu(GEMINI_PROMPT, image_path=downloaded)
+        result = llm_parse_menu(LLM_PROMPT, image_path=downloaded)
 
     if not result:
         logger.warning("No menu found in the last image.")
