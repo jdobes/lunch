@@ -14,7 +14,7 @@ Ignoruj překlady jídel do angličtiny.
 Na začátek řádku, který označuje polévku, přidej "Polévka: ".
 Rozděl jídla do 3 kategorií - polévky, menu k dispozici jen konkrétní den, týdenní menu - které jsou odděleny prázdným řádkem.
 Pokud datum neobsahuje rok, uvažuj {datetime.now().year}.
-Pokud se nejedná o seznam jídel na celý týden, vrať prázdný výsledek.
+Pokud se nejedná o seznam jídel, vrať prázdný výsledek.
 
 Text:
 
