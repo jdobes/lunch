@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.12.3 (2026-07-20)
+
+### Bug Fixes
+
+- This causes returning empty result when some days are missing
+  ([`383cd4f`](https://github.com/jdobes/lunch/commit/383cd4fe40d86283d6949cc43ca6b22f23ce8ead))
+
+
 ## v1.12.2 (2026-07-20)
 
 ### Bug Fixes
