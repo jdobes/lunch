@@ -29,9 +29,9 @@ jobs:
       - name: Build React app
         run: |
           ./build_web.sh
-      - name: Install qemu-user-static for multi-arch build
+      - name: Install qemu-user-binfmt-hwe for multi-arch build
         run: |
-          sudo apt update && sudo apt install -y qemu-user-static
+          sudo apt update && sudo apt install -y qemu-user-binfmt-hwe
       - name: Build latest version
         run: |
           podman build --platform "$PLATFORM" --squash --manifest new_image .
