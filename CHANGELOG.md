@@ -2,6 +2,123 @@
 
 <!-- version list -->
 
+## v1.13.0 (2026-11-23)
+
+### Chores
+
+- **deps**: Update actions/setup-python action to v7
+  ([`efa8b5a`](https://github.com/jdobes/lunch/commit/efa8b5a6a7ef9e923b26b29571d43411ee8c3b2e))
+
+- **deps**: Update actions/setup-python digest to 6d4fd22
+  ([`d72b8b3`](https://github.com/jdobes/lunch/commit/d72b8b327d1606d2ad96fe2f3acb16ee0e3b68ec))
+
+- **deps**: Update dataaxiom/ghcr-cleanup-action digest to ac45a8c
+  ([`090e633`](https://github.com/jdobes/lunch/commit/090e633df71b3192a9cb8ac8ccf97dce8ece333a))
+
+- **deps**: Update references
+  ([`b17d4d8`](https://github.com/jdobes/lunch/commit/b17d4d8e2f4bf8f01b6df6682661ea23e83f90bd))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1784669047
+  ([`6858ded`](https://github.com/jdobes/lunch/commit/6858dedbea5306b8ac7b048d78c8fe9609f95253))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1785215492
+  ([`3765d30`](https://github.com/jdobes/lunch/commit/3765d306d33d6ee4365596dd772b1875d4b9eeca))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1785332632
+  ([`f86432e`](https://github.com/jdobes/lunch/commit/f86432e3e7e920c3526e9fd8beecc9c3c15f85c0))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1785778687
+  ([`3dafa5d`](https://github.com/jdobes/lunch/commit/3dafa5de376cd3b6256908d61d83e11dcc006f1f))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1786323476
+  ([`6f8530a`](https://github.com/jdobes/lunch/commit/6f8530a218b7be926c593bd8e52d93297a55242f))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1786398535
+  ([`29957ac`](https://github.com/jdobes/lunch/commit/29957acf21ff71a3362bb0f7b7cc22fc92db2d74))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1786960640
+  ([`460e516`](https://github.com/jdobes/lunch/commit/460e5160f4cdde33e85c77e4056e6be38a3cdfc6))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1787204459
+  ([`fd99ede`](https://github.com/jdobes/lunch/commit/fd99edecb46f563644b9303cd765b999b8503c1c))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1787688243
+  ([`3e6440a`](https://github.com/jdobes/lunch/commit/3e6440ac0a04179dd28cf1d8ea2b47d29370aa90))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1788137716
+  ([`43e42b2`](https://github.com/jdobes/lunch/commit/43e42b2cf85304ad3c95067c188f1aa901846a28))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1788940913
+  ([`e1d32b9`](https://github.com/jdobes/lunch/commit/e1d32b90ff82a6f31e371b419d6dc3659671f59b))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1789456728
+  ([`7556383`](https://github.com/jdobes/lunch/commit/7556383ba6c1f9061cc11fb6626cc476861e383d))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1789645153
+  ([`531c3a4`](https://github.com/jdobes/lunch/commit/531c3a49982c47978cb0351b9df1dcadec7d1ceb))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1790075626
+  ([`2435f91`](https://github.com/jdobes/lunch/commit/2435f91ffe32cab28011f55b9a104e0967756cb0))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1790556942
+  ([`41bab08`](https://github.com/jdobes/lunch/commit/41bab0837dceb065c248249b9667608ee8c2b9bb))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1790753097
+  ([`a88e4e9`](https://github.com/jdobes/lunch/commit/a88e4e9d9559f5c749d89ece06e5f227f624271c))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1791269426
+  ([`15eabaa`](https://github.com/jdobes/lunch/commit/15eabaa9856252b9bd326cc2ab1fcd840cda849c))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1791321979
+  ([`5f04559`](https://github.com/jdobes/lunch/commit/5f04559677f80ea2393cdfe7e1290c978888cdb1))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1791346265
+  ([`183f345`](https://github.com/jdobes/lunch/commit/183f345d25ecaf408ac61a06f406d92deea16f59))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1791444377
+  ([`a88b1a7`](https://github.com/jdobes/lunch/commit/a88b1a75d5f44e393a0709c09b45137fbfeace57))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1791784796
+  ([`9a6529e`](https://github.com/jdobes/lunch/commit/9a6529ec130cf67b06ed5194897cd0e9c2cb326e))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1791891203
+  ([`ff02069`](https://github.com/jdobes/lunch/commit/ff0206936ead1c0b956763346176bf2ee553cc98))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1792457157
+  ([`457ee7d`](https://github.com/jdobes/lunch/commit/457ee7d3010f72bd1ab3c204b3f1ef8081838285))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1792742351
+  ([`5bb0029`](https://github.com/jdobes/lunch/commit/5bb002985e72f217aaad4219e5b29839d6ec9adf))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1793863917
+  ([`4e9e9d0`](https://github.com/jdobes/lunch/commit/4e9e9d0d060a64ba848ea7b3a897d60ab2050059))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.2-1794227009
+  ([`cded71a`](https://github.com/jdobes/lunch/commit/cded71ad713e5e7c36d560ca0f4af3ba3ed786f6))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.3-1793834883
+  ([`b219241`](https://github.com/jdobes/lunch/commit/b2192417429e507f02f1e92779c95a4633643dec))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.3-1794499233
+  ([`516dc27`](https://github.com/jdobes/lunch/commit/516dc27ed9b93d620ecc6f00d3767bf0eb6b0561))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.3-1795002774
+  ([`d34729c`](https://github.com/jdobes/lunch/commit/d34729c021e54e9122c99a73d44cb80a86abc1f2))
+
+- **deps**: Update registry.access.redhat.com/ubi10/ubi-minimal docker tag to v10.3-1795196920
+  ([`63e15be`](https://github.com/jdobes/lunch/commit/63e15be7ebb7b4f6b103677f5c4486fe42d79f24))
+
+### Continuous Integration
+
+- Use qemu-user-binfmt-hwe
+  ([`b675ea1`](https://github.com/jdobes/lunch/commit/b675ea11ad7911df290ee7f25398248694a61090))
+
+### Features
+
+- Allow to use any AI API providers
+  ([`7b0d695`](https://github.com/jdobes/lunch/commit/7b0d695cd675779cc1a776aee576e78234939a91))
+
+
 ## v1.12.3 (2026-07-20)
 
 ### Bug Fixes
